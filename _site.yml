@@ -1,0 +1,12 @@
+name: "TG_GATEs tutorial for contest"
+navbar:
+  title: "HOME"
+  left:
+    - text: "Data Description"
+      href: data_description.html
+output_dir: "."
+output:
+  html_document:
+    theme: yeti
+    highlight: textmate
+exclude: ["*.docx"]
