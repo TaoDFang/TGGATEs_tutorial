@@ -1,0 +1,63 @@
+---
+title: "data_description"
+output: 
+  html_document:
+  toc: true
+  toc_float: true
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this part, I will walk you through details of our data and introduce some data proprecessing procedures.  I hope you could get a clear understanding of our data and are able to generate you own training dataset after this session.  
+
+Basicaly, we will use rat in vivo liver diffrential gene expression data as training data and use the correspoding pathology terms as labels. For your quickly understanding , imagine our training data as a matrix whose rows represent samples and coloumns represent features. In more details, each sample(row) represents diffrential gene expression levels in liver for a  rat at certain time point and cetain drug dose level. And each feature(column) represents expression level of a certain gene across different samples. Each sample has a pathological record for each pathology from TG-GATEs.
+
+---
+
+## Diffrential gene expression data
+ 
+### Gene expression data 
+Before we go further, let's first introduce what is gene expression data. Gene is the basic physical and functional unit of heredity among all the species. Slight difference between genes decide individual's unique physical features. Gene controls the traits or phenotypes of species by transcripting and tranlating to RNAs and proteins. The expression level of transcription and translation  can be dedected by microarrays or next generation sequencing techniques(NGS), which is called gene expression data.
+
+The gene expression levels in rat in vivo liver in TG-GATEs are measured by microarrays 
+
+
+
+
+### Diffrential gene expression data 
+But here we use diffrential gene expression data other than gene expression data mainly because of batch effect. But in contest you  could also try  gene expression data since you can get more samples in this case.
+
+
+## TG-GATEs
+
+## Data preprocessing 
+
+## Data combination
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
