@@ -5,16 +5,16 @@ navbar:
   icon: fa-home
   left:
     - text: "Easy Start"
-      icon: ios7-bolt.png
+      icon: fa-shipping-fast
       href: easy_start.html
     - text: "Data Description"
-      icon: help.png
+      icon: fa-database
       href: data_description.html
     - text: "Final Submission"
-      icon: upload.png
+      icon: fa-upload
       href: final_submission.html
     - text: "About"
-      icon: fa-home
+      icon: fa-info-circle
       href: about.html
       
 output_dir: "."
