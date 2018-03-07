@@ -2,7 +2,7 @@ name: "TG_GATEs tutorial for contest"
 
 navbar:
   title: "Home"
-  icon: home
+  icon: fa-home
   left:
     - text: "Easy Start"
       icon: ios7-bolt.png
@@ -14,7 +14,7 @@ navbar:
       icon: upload.png
       href: final_submission.html
     - text: "About"
-      icon: upload.png
+      icon: fa-home
       href: about.html
       
 output_dir: "."

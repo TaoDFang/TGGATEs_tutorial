@@ -33,6 +33,7 @@ The contest is divided into 3 stages.
 
 ## Evaluation of the results
 A total of **50 points** will be given.
+
 * For the first stage, a maximum of **15 points** will be given. Tools are judged by generalised performance measures (e.g. F1 score, Precision, Recall, etc.).
 
 * For the second stage, a maximum of **15 points** will be given. Tools are judged both by good generalised performance measures and by the ability to shed light on the molecular mechanism of pathology.
