@@ -20,9 +20,13 @@ Basicaly, we will use rat in vivo liver diffrential gene expression data as trai
 ## Diffrential gene expression data
  
 ### Gene expression data 
-Before we go further, let's first introduce what is gene expression data. Gene is the basic physical and functional unit of heredity among all the species. Slight difference between genes decide individual's unique physical features. Gene controls the traits or phenotypes of species by transcripting and tranlating to RNAs and proteins. The expression level of transcription and translation  can be dedected by microarrays or next generation sequencing techniques(NGS), which is called gene expression data.
+Before we go further, let's first introduce what is gene expression data. Gene is the basic physical and functional unit of heredity among all the species. Slight difference between genes decide individual's unique physical features. Gene controls the traits or phenotypes of species by transcripting and tranlating to RNAs and proteins. The expression level of transcription and translation  can be dedected by [microarrays](https://en.wikipedia.org/wiki/DNA_microarray) or next generation sequencing techniques(NGS), which is called gene expression data.
 
-The gene expression levels in rat in vivo liver in TG-GATEs are measured by microarrays 
+The gene expression levels in rat in vivo liver in [TG-GATEs][Link to TG-GATEs paper] are measured by microarrays. So the results are stored in .CEL file format and all the CEL data pass the qualitity country[QC](https://www.ncbi.nlm.nih.gov/pubmed/15364885)
+
+Then let's get a intuitive understanding of gene expression data from rat in vivo liver that administered acarbose in single-dose experiment(See below what is [single-dose experiment](#single_dose_experiment) in TG-GATEs).
+
+
 
 
 
@@ -33,11 +37,19 @@ But here we use diffrential gene expression data other than gene expression data
 
 ## TG-GATEs
 
+
+### <a id="single_dose_experiment"></a> Experimental design
+
 ## Data preprocessing 
 
 ## Data combination
 
 
+
+
+
+
+[Link to TG-GATEs paper]: https://www.ncbi.nlm.nih.gov/pubmed/25313160
 
 
 
