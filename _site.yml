@@ -1,14 +1,11 @@
 name: "TG_GATEs tutorial for contest"
 
 navbar:
-  title: "Website Name"
-
+  title: "Home"
+  icon: fa-home
   left:
-    - text: "Home"
-      icon: fa-home
-      href: index.html
     - text: "Easy Start"
-      icon: fa-shipping-fast
+      icon: fa-fighter-jet
       href: easy_start.html
     - text: "Data Description"
       icon: fa-database
