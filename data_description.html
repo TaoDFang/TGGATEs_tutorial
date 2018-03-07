@@ -11,7 +11,7 @@
 
 
 
-<title>data_description</title>
+<title>Data Description</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -269,12 +269,37 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">HOME</a>
+      <a class="navbar-brand" href="index.html">Home</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="data_description.html">Data Description</a>
+  <a href="easy_start.html">
+    <span class="ios7 ios7-bolt.png"></span>
+     
+    Easy Start
+  </a>
+</li>
+<li>
+  <a href="data_description.html">
+    <span class=" help.png"></span>
+     
+    Data Description
+  </a>
+</li>
+<li>
+  <a href="final_submission.html">
+    <span class=" upload.png"></span>
+     
+    Final Submission
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class=" upload.png"></span>
+     
+    About
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -288,7 +313,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">data_description</h1>
+<h1 class="title toc-ignore">Data Description</h1>
 
 </div>
 
@@ -301,11 +326,21 @@ div.tocify {
 <div id="gene-expression-data" class="section level3">
 <h3>Gene expression data</h3>
 <p>Before we go further, let’s first introduce what is gene expression data. Gene is the basic physical and functional unit of heredity among all the species. Slight difference between genes decide individual’s unique physical features. Gene controls the traits or phenotypes of species by transcripting and tranlating to RNAs and proteins. The expression level of transcription and translation can be dedected by <a href="https://en.wikipedia.org/wiki/DNA_microarray">microarrays</a> or next generation sequencing techniques(NGS), which is called gene expression data.</p>
-<p>The gene expression levels in rat in vivo liver in <a href="https://www.ncbi.nlm.nih.gov/pubmed/25313160">TG-GATEs</a> are measured by microarrays. So the results are stored in .CEL file format and all the CEL data pass the qualitity country <a href="https://www.ncbi.nlm.nih.gov/pubmed/15364885">QC</a></p>
+<p>The gene expression levels in rat in vivo liver in <a href="https://www.ncbi.nlm.nih.gov/pubmed/25313160">TG-GATEs</a> are measured by microarrays. So the results are stored in .CEL file format and all the CEL data pass the qualitity control <a href="https://www.ncbi.nlm.nih.gov/pubmed/15364885">QC</a></p>
 <p>Then let’s get a intuitive understanding of gene expression data from rat in vivo liver that administered acarbose in single-dose experiment(See below what is <a href="#single_dose_experiment">single-dose experiment</a> in TG-GATEs). In the folder of “TG-GATEs/rat/in_vivo/Liver/Single/acarbose.Rat.in_vivo.Liver.Single”, there is a folder called “celfiles” containing CEL files for each microarray result. Another Attribute.csv file in this folder includes metadata for each CEL file in “celfiles” directory.</p>
 <center>
-<img src="images/acarbose_folder.png" width="350px">
+<img src="images/acarbose_folder.png" width="900px">
 </center>
+<p>For example, the second row in Attribute.csv file have a attribute “BARCODE” with value “3017401004”</p>
+<center>
+<img src="images/acarbose_attributes.png" width="900px">
+</center>
+<p>This means this row is meatadata for “003017401004.CEL” in “celfiles” folder.</p>
+<center>
+<img src="images/acarbose_celfiles.png" width="900px">
+</center>
+<p>The attibutes “ORGAN”, “COMPOMD_NAME”,“SPECIES”,“TEST_TYPE”,“SIN_REP_TYPE”,“SACRI_PERIOD” and “DOSE_level” in second row of attributes file tell us “003017401004.CEL” containing the gene expression data of liver for rat administerted acarbose, which was measured at 3 hour with dose level “control”</p>
+<p>Then we load all the CEL data in this folder and preprocess them with R packages <a href="https://www.bioconductor.org/packages/release/bioc/html/affy.html">“affy”</a>. This step is necessary and reasons for this are explained in folloing section(#data_preprocesing_reasons )</p>
 </div>
 <div id="diffrential-gene-expression-data-1" class="section level3">
 <h3>Diffrential gene expression data</h3>
@@ -319,7 +354,7 @@ div.tocify {
 </div>
 </div>
 <div id="data-preprocessing" class="section level2">
-<h2>Data preprocessing</h2>
+<h2><a id="data_preprocessing "></a> Data preprocessing</h2>
 </div>
 <div id="data-combination" class="section level2">
 <h2>Data combination</h2>

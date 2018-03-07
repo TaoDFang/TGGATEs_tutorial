@@ -1,12 +1,27 @@
 name: "TG_GATEs tutorial for contest"
+
 navbar:
-  title: "HOME"
+  title: "Home"
+  icon: home
   left:
+    - text: "Easy Start"
+      icon: ios7-bolt.png
+      href: easy_start.html
     - text: "Data Description"
+      icon: help.png
       href: data_description.html
+    - text: "Final Submission"
+      icon: upload.png
+      href: final_submission.html
+    - text: "About"
+      icon: upload.png
+      href: about.html
+      
 output_dir: "."
+
 output:
   html_document:
     theme: yeti
     highlight: textmate
-exclude: ["*.docx"]
+    
+exclude: ["*.docx","*.R", "TG_GATES_1_08.Rmd"]

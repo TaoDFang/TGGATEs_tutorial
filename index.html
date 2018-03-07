@@ -9,10 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Jitao David Zhang &amp; Tao Fang" />
+<meta name="author" content="Jitao David Zhang and Tao Fang, Pharmaceutical Sciences, Pharma Research and Early Development, F. Hoffmann-La Roche Ltd." />
 
 
-<title>This is website of TG_GATEs tutorial</title>
+<title>Machine Learning for Preclinical Drug Safety: a case study with the TG-GATEs database</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -172,12 +172,37 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">HOME</a>
+      <a class="navbar-brand" href="index.html">Home</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="data_description.html">Data Description</a>
+  <a href="easy_start.html">
+    <span class="ios7 ios7-bolt.png"></span>
+     
+    Easy Start
+  </a>
+</li>
+<li>
+  <a href="data_description.html">
+    <span class=" help.png"></span>
+     
+    Data Description
+  </a>
+</li>
+<li>
+  <a href="final_submission.html">
+    <span class=" upload.png"></span>
+     
+    Final Submission
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class=" upload.png"></span>
+     
+    About
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -191,31 +216,53 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">This is website of TG_GATEs tutorial</h1>
-<h4 class="author"><em>Jitao David Zhang &amp; Tao Fang</em></h4>
+<h1 class="title toc-ignore">Machine Learning for Preclinical Drug Safety: a case study with the TG-GATEs database</h1>
+<h4 class="author"><em>Jitao David Zhang and Tao Fang, Pharmaceutical Sciences, Pharma Research and Early Development, F. Hoffmann-La Roche Ltd.</em></h4>
 <h4 class="date"><em>3/5/2018</em></h4>
 
 </div>
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
+<div id="background" class="section level2">
+<h2>Background</h2>
+<p>Drug candidates are comprehensively and thoroughly tested for their safety profiles before they enter clinical trials. Gene expression profiling with omics technologies, often applied in combination with cell-based assays or animal tests, has contributed significantly to our understanding of safety-relevant findings of drug candidates.</p>
+<p>In this contest, we focus on two types of data that are often encountered in preclinical research: drug-induced gene expression data and pathology. The goal of the contest is to create algorithms and software that (1) <strong>best predict pathology findings given gene expression profiles</strong>, (2) <strong>mostly deepen our understanding of molecular mechanisms underlying the pathology findings</strong>.</p>
+<hr />
 </div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="index_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<div id="format-of-the-contest" class="section level2">
+<h2>Format of the contest</h2>
+<p>Participants of the contest are provided with a selected subset of the TG-GATEs database, including drug-response gene expression data and pathology records. Before the contest starts, an introduction to the database and data format will be given.</p>
+<p>The contest is divided into 3 stages.</p>
+<ol style="list-style-type: decimal">
+<li><p>In the first stage, the participants will design machine-learning tools that can predict pathology records with drug-response gene expression data. This stage can be called the <em>‘black-box stage’</em>, because the tool can be a black-box in the sense that it depends on pure statistics and does not have to help us better understand the pathology.</p></li>
+<li><p>In the second stage, the participants are encouraged to explore the meaning of the gene expression data, by tools such as gene-set enrichment analysis and co-expression analysis, and to implement machine-learning strategies based on the statistics derived from such analysis with the aim of deriving explainable models of prediction. This stage can be called the <em>‘unboxing stage’</em>, because the aim is to get better understanding of the mechanisms underlying pathologies by alternative ways of feature selection based on either bioinformatics-specific or general techniques.</p></li>
+<li><p>In the third, final, and optional stage, the participants are encouraged to collect publicly available information on the drugs (such as the information in the ChEMBL and the DrugBank database, see reference) and improve the machine-learning tools produced in the first with these additional information. This stage can be called the <em>‘making-a-bigger-box stage’</em>, because the aim is to improve the prediction performance using additional information besides gene expression.</p></li>
+</ol>
+<hr />
+</div>
+<div id="evaluation-of-the-results" class="section level2">
+<h2>Evaluation of the results</h2>
+<p>A total of <strong>50 points</strong> will be given. * For the first stage, a maximum of <strong>15 points</strong> will be given. Tools are judged by generalised performance measures (e.g. F1 score, Precision, Recall, etc.).</p>
+<ul>
+<li><p>For the second stage, a maximum of <strong>15 points</strong> will be given. Tools are judged both by good generalised performance measures and by the ability to shed light on the molecular mechanism of pathology.</p></li>
+<li><p>For the third, optional stage, a maximum of <strong>10 points</strong> will be given. Tools are judged by good generalised performance measures and by the extra information used.</p></li>
+<li><p>A maximal of <strong>10 points</strong> will be given to the presentations.</p></li>
+</ul>
+<hr />
+</div>
+<div id="future-publication-of-the-results" class="section level2">
+<h2>Future publication of the results</h2>
+<p>We want to make the participants aware that we would like to keep the right to publish and discuss the results of this contest, either completely or partially, in a future manuscript for peer-reviewed journals. Participants contributing to the published results will be invited as co-authors of the publication.</p>
+<hr />
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p><a href="https://doi.org/10.1093/nar/gku955.">Igarashi, Yoshinobu, Noriyuki Nakatsu, Tomoya Yamashita, Atsushi Ono, Yasuo Ohno, Tetsuro Urushidani, and Hiroshi Yamada. “Open TG-GATEs: A Large-Scale Toxicogenomics Database.” Nucleic Acids Research 43, no. D1 (January 28, 2015): D921–27.</a></p>
+<p><a href="https://doi.org/10.1038/tpj.2013.39.">Zhang, J. D., N. Berntenis, A. Roth, and M. Ebeling. “Data Mining Reveals a Network of Early-Response Genes as a Consensus Signature of Drug-Induced in Vitro and in Vivo Toxicity.” The Pharmacogenomics Journal 14, no. 3 (June 2014): 208–16.</a></p>
+<p><a href="https://doi.org/10.1371/journal.pcbi.1004847.">Sutherland, Jeffrey J., Robert A. Jolly, Keith M. Goldstein, and James L. Stevens. “Assessing Concordance of Drug-Induced Transcriptional Response in Rodent Liver and Cultured Hepatocytes.” PLOS Computational Biology 12, no. 3 (March 30, 2016): e1004847.</a></p>
+<p><a href="https://doi.org/10.1371/journal.pcbi.1005280.">Thiel, Christoph, Henrik Cordes, Lorenzo Fabbri, Hélène Eloise Aschmann, Vanessa Baier, Ines Smit, Francis Atkinson, Lars Mathias Blank, and Lars Kuepfer. “A Comparative Analysis of Drug-Induced Hepatotoxicity in Clinically Relevant Situations.” PLOS Computational Biology 13, no. 2 (February 2, 2017): e1005280.</a></p>
+<p><a href="https://www.ebi.ac.uk/chembl/">The ChEMBL database</a></p>
+<p><a href="https://www.drugbank.ca/">The DrugBank database (freely available for academic use)</a></p>
 </div>
 
 

@@ -1,6 +1,6 @@
 ---
-title: "This is website of TG_GATEs tutorial "
-author: "Jitao David Zhang & Tao Fang"
+title: "Machine Learning for Preclinical Drug Safety: a case study with the TG-GATEs database "
+author: "Jitao David Zhang and Tao Fang, Pharmaceutical Sciences, Pharma Research and Early Development, F. Hoffmann-La Roche Ltd."
 date: "3/5/2018"
 output: html_document
 ---
@@ -9,22 +9,55 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Background
+Drug candidates are comprehensively and thoroughly tested for their safety profiles before they enter clinical trials. Gene expression profiling with omics technologies, often applied in combination with cell-based assays or animal tests, has contributed significantly to our understanding of safety-relevant findings of drug candidates.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+In this contest, we focus on two types of data that are often encountered in preclinical research: drug-induced gene expression data and pathology. The goal of the contest is to create algorithms and software that (1) **best predict pathology findings given gene expression profiles**, (2) **mostly deepen our understanding of molecular mechanisms underlying the pathology findings**.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+---
 
-```{r cars}
-summary(cars)
-```
 
-## Including Plots
+## Format of the contest
+Participants of the contest are provided with a selected subset of the TG-GATEs database, including drug-response gene expression data and pathology records. Before the contest starts, an introduction to the database and data format will be given.
 
-You can also embed plots, for example:
+The contest is divided into 3 stages. 
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+1. In the first stage, the participants will design machine-learning tools that can predict pathology records with drug-response gene expression data. This stage can be called the *‘black-box stage’*, because the tool can be a black-box in the sense that it depends on pure statistics and does not have to help us better understand the pathology.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+2. In the second stage, the participants are encouraged to explore the meaning of the gene expression data, by tools such as gene-set enrichment analysis and co-expression analysis, and to implement machine-learning strategies based on the statistics derived from such analysis  with the aim of deriving explainable models of prediction. This stage can be called the *‘unboxing stage’*, because the aim is to get better understanding of the mechanisms underlying pathologies by alternative ways of feature selection based on either bioinformatics-specific or general techniques.
+
+3. In the third, final, and optional stage, the participants are encouraged to collect publicly available information on the drugs (such as the information in the ChEMBL and the DrugBank database, see reference) and improve the machine-learning tools produced in the first with these additional information. This stage can be called the *‘making-a-bigger-box stage’*, because the aim is to improve the prediction performance using additional information besides gene expression.
+
+
+---
+
+## Evaluation of the results
+A total of **50 points** will be given.
+* For the first stage, a maximum of **15 points** will be given. Tools are judged by generalised performance measures (e.g. F1 score, Precision, Recall, etc.).
+
+* For the second stage, a maximum of **15 points** will be given. Tools are judged both by good generalised performance measures and by the ability to shed light on the molecular mechanism of pathology.
+
+* For the third, optional stage, a maximum of **10 points** will be given. Tools are judged by good generalised performance measures and by the extra information used.
+
+* A maximal of **10 points** will be given to the presentations.
+
+---
+
+
+## Future publication of the results
+We want to make the participants aware that we would like to keep the right to publish and discuss the results of this contest, either completely or partially, in a future manuscript for peer-reviewed journals. Participants contributing to the published results will be invited as co-authors of the publication. 
+
+---
+
+## References
+[Igarashi, Yoshinobu, Noriyuki Nakatsu, Tomoya Yamashita, Atsushi Ono, Yasuo Ohno, Tetsuro Urushidani, and Hiroshi Yamada. “Open TG-GATEs: A Large-Scale Toxicogenomics Database.” Nucleic Acids Research 43, no. D1 (January 28, 2015): D921–27.](https://doi.org/10.1093/nar/gku955.)
+
+[Zhang, J. D., N. Berntenis, A. Roth, and M. Ebeling. “Data Mining Reveals a Network of Early-Response Genes as a Consensus Signature of Drug-Induced in Vitro and in Vivo Toxicity.” The Pharmacogenomics Journal 14, no. 3 (June 2014): 208–16.](https://doi.org/10.1038/tpj.2013.39.)
+
+[Sutherland, Jeffrey J., Robert A. Jolly, Keith M. Goldstein, and James L. Stevens. “Assessing Concordance of Drug-Induced Transcriptional Response in Rodent Liver and Cultured Hepatocytes.” PLOS Computational Biology 12, no. 3 (March 30, 2016): e1004847.](https://doi.org/10.1371/journal.pcbi.1004847.) 
+
+[Thiel, Christoph, Henrik Cordes, Lorenzo Fabbri, Hélène Eloise Aschmann, Vanessa Baier, Ines Smit, Francis Atkinson, Lars Mathias Blank, and Lars Kuepfer. “A Comparative Analysis of Drug-Induced Hepatotoxicity in Clinically Relevant Situations.” PLOS Computational Biology 13, no. 2 (February 2, 2017): e1005280.](https://doi.org/10.1371/journal.pcbi.1005280.) 
+
+[The ChEMBL database](https://www.ebi.ac.uk/chembl/)
+
+[The DrugBank database (freely available for academic use)](https://www.drugbank.ca/)
