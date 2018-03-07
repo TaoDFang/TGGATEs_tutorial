@@ -2,8 +2,8 @@
 title: "data_description"
 output: 
   html_document:
-  toc: true
-  toc_float: true
+    toc: true
+    toc_float: true
   
 ---
 
@@ -24,8 +24,10 @@ Before we go further, let's first introduce what is gene expression data. Gene i
 
 The gene expression levels in rat in vivo liver in [TG-GATEs][Link to TG-GATEs paper] are measured by microarrays. So the results are stored in .CEL file format and all the CEL data pass the qualitity country[QC](https://www.ncbi.nlm.nih.gov/pubmed/15364885)
 
-Then let's get a intuitive understanding of gene expression data from rat in vivo liver that administered acarbose in single-dose experiment(See below what is [single-dose experiment](#single_dose_experiment) in TG-GATEs).
+Then let's get a intuitive understanding of gene expression data from rat in vivo liver that administered acarbose in single-dose experiment(See below what is [single-dose experiment](#single_dose_experiment) in TG-GATEs). In the folder of "TG-GATEs/rat/in_vivo/Liver/Single/acarbose.Rat.in_vivo.Liver.Single",
+there is a folder called "celfiles" containing CEL files for each microarray result. Another Attribute.csv file in this folder includes metadata for each CEL file in "celfiles" directory. 
 
+<center><img src="images/acarbose_folder.png" width="350px"></center>
 
 
 
