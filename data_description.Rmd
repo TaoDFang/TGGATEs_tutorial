@@ -27,7 +27,7 @@ The gene expression levels in rat in vivo liver in [TG-GATEs][Link to TG-GATEs p
 Then let's get a intuitive understanding of gene expression data from rat in vivo liver that administered acarbose in single-dose experiment(See below what is [single-dose experiment](#single_dose_experiment) in TG-GATEs). In the folder of "TG-GATEs/rat/in_vivo/Liver/Single/acarbose.Rat.in_vivo.Liver.Single",
 there is a folder called "celfiles" containing CEL files for each microarray result. Another Attribute.csv file in this folder includes metadata for each CEL file in "celfiles" directory. 
 
-<center><img src="images/acarbose_folder.png" width="350px"></center>
+<center><img src="images/acarbose_folder.PNG" width="350px"></center>
 
 
 
