@@ -62,3 +62,5 @@ We want to make the participants aware that we would like to keep the right to p
 [The ChEMBL database](https://www.ebi.ac.uk/chembl/)
 
 [The DrugBank database (freely available for academic use)](https://www.drugbank.ca/)
+
+---

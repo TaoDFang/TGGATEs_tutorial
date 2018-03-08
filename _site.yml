@@ -24,5 +24,7 @@ output:
     theme: yeti
     highlight: textmate
     includes:
+      in_header: _include/in_header.html
       after_body: _include/after_body.html
+      
 exclude: ["*.docx","*.R", "TG_GATES_1_08.Rmd"]

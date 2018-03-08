@@ -23,6 +23,25 @@
 <link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<!-- Font Awesome -->
+<!-- <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" /> -->
+<!-- <script src="https://use.fontawesome.com/54ee8c2dfd.js"></script> -->
+
+<!-- Google fonts -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Oswald:400,700' rel='stylesheet' type='text/css'>
+
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+
+<!-- Google analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-8298649-8', 'auto');
+  ga('send', 'pageview');
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -238,13 +257,20 @@ $(document).ready(function () {
 <p>We load exprs_train data in R and explain a bit more as you will need this knowledge in stage two and three.</p>
 <pre class="r"><code>exprs_train=read.csv(&quot;../TGGATEs_tutorial_secrete/data/exprs_train.csv&quot;,header = TRUE,row.names = 1)
 head(exprs_train[,1:6])</code></pre>
-<pre><code>##                                      SART3       MIEN1         IMP4       SAR1B      PPHLN1        SSR3
-## 2-nitrofluorene_24 hr_Middle    0.73327278 -0.45495492  0.693705231  0.09767067  0.39510401 -0.66638558
-## trimethadione_9 hr_High         0.18103023  0.11669456  0.069029405  0.11100383  0.19813255 -0.04915914
-## chlormezanone_29 day_High      -0.24313610  0.09928480  0.124773180 -0.03328391 -0.10490141  0.14230696
-## carbon_tetrachloride_8 day_Low -0.18118338  0.02793824  0.003757397  0.02106385  0.06762736  0.04519068
-## amitriptyline_9 hr_Low         -0.08628885  0.06813249  0.070277935 -0.10053169 -0.10402111 -0.08149544
-## nimesulide_15 day_Low           0.04427400 -0.17457010 -0.265567300 -0.04297022 -0.23022460 -0.01856702</code></pre>
+<pre><code>##                                      SART3       MIEN1         IMP4
+## 2-nitrofluorene_24 hr_Middle    0.73327278 -0.45495492  0.693705231
+## trimethadione_9 hr_High         0.18103023  0.11669456  0.069029405
+## chlormezanone_29 day_High      -0.24313610  0.09928480  0.124773180
+## carbon_tetrachloride_8 day_Low -0.18118338  0.02793824  0.003757397
+## amitriptyline_9 hr_Low         -0.08628885  0.06813249  0.070277935
+## nimesulide_15 day_Low           0.04427400 -0.17457010 -0.265567300
+##                                      SAR1B      PPHLN1        SSR3
+## 2-nitrofluorene_24 hr_Middle    0.09767067  0.39510401 -0.66638558
+## trimethadione_9 hr_High         0.11100383  0.19813255 -0.04915914
+## chlormezanone_29 day_High      -0.03328391 -0.10490141  0.14230696
+## carbon_tetrachloride_8 day_Low  0.02106385  0.06762736  0.04519068
+## amitriptyline_9 hr_Low         -0.10053169 -0.10402111 -0.08149544
+## nimesulide_15 day_Low          -0.04297022 -0.23022460 -0.01856702</code></pre>
 <pre class="r"><code>dim(exprs_train)</code></pre>
 <pre><code>## [1] 2822 5613</code></pre>
 <p>As you can see, rownames of expression data have format “durg/compound_time_dose level”. So this means this row is the gene differential expression data of liver for the rat that was administered “drug/compound” with “dose level” and sacrificed at “time point” for measurement. From “drug/compound”, you can collect more information and thus <em>‘making-a-bigger-box’</em> in <strong>stage 3</strong>.</p>
