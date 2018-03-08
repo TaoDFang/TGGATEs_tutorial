@@ -23,5 +23,6 @@ output:
   html_document:
     theme: yeti
     highlight: textmate
-    
+    includes:
+      after_body: _include/after_body.html
 exclude: ["*.docx","*.R", "TG_GATES_1_08.Rmd"]

@@ -238,27 +238,20 @@ $(document).ready(function () {
 <p>We load exprs_train data in R and explain a bit more as you will need this knowledge in stage two and three.</p>
 <pre class="r"><code>exprs_train=read.csv(&quot;../TGGATEs_tutorial_secrete/data/exprs_train.csv&quot;,header = TRUE,row.names = 1)
 head(exprs_train[,1:6])</code></pre>
-<pre><code>##                                      SART3       MIEN1         IMP4
-## 2-nitrofluorene_24 hr_Middle    0.73327278 -0.45495492  0.693705231
-## trimethadione_9 hr_High         0.18103023  0.11669456  0.069029405
-## chlormezanone_29 day_High      -0.24313610  0.09928480  0.124773180
-## carbon_tetrachloride_8 day_Low -0.18118338  0.02793824  0.003757397
-## amitriptyline_9 hr_Low         -0.08628885  0.06813249  0.070277935
-## nimesulide_15 day_Low           0.04427400 -0.17457010 -0.265567300
-##                                      SAR1B      PPHLN1        SSR3
-## 2-nitrofluorene_24 hr_Middle    0.09767067  0.39510401 -0.66638558
-## trimethadione_9 hr_High         0.11100383  0.19813255 -0.04915914
-## chlormezanone_29 day_High      -0.03328391 -0.10490141  0.14230696
-## carbon_tetrachloride_8 day_Low  0.02106385  0.06762736  0.04519068
-## amitriptyline_9 hr_Low         -0.10053169 -0.10402111 -0.08149544
-## nimesulide_15 day_Low          -0.04297022 -0.23022460 -0.01856702</code></pre>
+<pre><code>##                                      SART3       MIEN1         IMP4       SAR1B      PPHLN1        SSR3
+## 2-nitrofluorene_24 hr_Middle    0.73327278 -0.45495492  0.693705231  0.09767067  0.39510401 -0.66638558
+## trimethadione_9 hr_High         0.18103023  0.11669456  0.069029405  0.11100383  0.19813255 -0.04915914
+## chlormezanone_29 day_High      -0.24313610  0.09928480  0.124773180 -0.03328391 -0.10490141  0.14230696
+## carbon_tetrachloride_8 day_Low -0.18118338  0.02793824  0.003757397  0.02106385  0.06762736  0.04519068
+## amitriptyline_9 hr_Low         -0.08628885  0.06813249  0.070277935 -0.10053169 -0.10402111 -0.08149544
+## nimesulide_15 day_Low           0.04427400 -0.17457010 -0.265567300 -0.04297022 -0.23022460 -0.01856702</code></pre>
 <pre class="r"><code>dim(exprs_train)</code></pre>
 <pre><code>## [1] 2822 5613</code></pre>
-<p>As you can see, rownames of expression data have format “durg/compound_time_dose level”. So this means this row is the gene differential expression data of liver for the rat that was administered “drug/compound” with “dose level” and sacrificed at “time point” for measurement. From “drug/compound”, you can collect more information and thus <em>‘making-a-bigger-box’</em> in <em>stage 3</em>.</p>
-<p>And colnames of expression data are gene names. So each column is gene diffrential expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutntered when applying machine learning techniques in Biology/Medicine. The aims of <em>stage 2</em> is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time.</p>
+<p>As you can see, rownames of expression data have format “durg/compound_time_dose level”. So this means this row is the gene differential expression data of liver for the rat that was administered “drug/compound” with “dose level” and sacrificed at “time point” for measurement. From “drug/compound”, you can collect more information and thus <em>‘making-a-bigger-box’</em> in <strong>stage 3</strong>.</p>
+<p>And colnames of expression data are gene names. So each column is gene diffrential expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutntered when applying machine learning techniques in Biology/Medicine. The aims of <strong>stage 2</strong> is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time.</p>
 </div>
-<div id="pathology-terms" class="section level3">
-<h3>pathology terms</h3>
+<div id="pathology-data" class="section level3">
+<h3>pathology data</h3>
 <p>Pathology data are pathological records corresponding to samples in expression data.</p>
 <pre class="r"><code>pathology_train=read.csv(&quot;../TGGATEs_tutorial_secrete/data/pathology_train.csv&quot;,header = TRUE,row.names = 1)
 head(pathology_train)</code></pre>
@@ -269,11 +262,13 @@ head(pathology_train)</code></pre>
 ## carbon_tetrachloride_8 day_Low              0           0
 ## amitriptyline_9 hr_Low                      0           0
 ## nimesulide_15 day_Low                       1           0</code></pre>
-<p>You can see we provide you with two pathologies “Microgranuloma” and “Hypertrophy”. In <em>stage 1</em> , it’s up to you to predict them sepretatly or try to predict two patholgies simultaneously (For example, by <a href="https://en.wikipedia.org/wiki/Multi-label_classification">multi-label classification</a>)</p>
+<p>You can see we provide you with two pathologies “Microgranuloma” and “Hypertrophy”. In <strong>stage 1</strong> , it’s up to you to predict them sepretatly or try to predict two patholgies simultaneously (For example, by <a href="https://en.wikipedia.org/wiki/Multi-label_classification">multi-label classification</a>)</p>
 <hr />
 </div>
 </div>
 
+
+<p>Copyright &copy; 2018 F.Hoffmann-La Roche Ltd-All rights reserved.</p>
 
 
 

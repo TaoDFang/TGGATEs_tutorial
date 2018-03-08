@@ -40,18 +40,18 @@ dim(exprs_train)
 ```
 
 As you can see, rownames of expression data have format "durg/compound_time_dose level".
-So this means this row is the gene differential expression data of liver for the  rat that was administered "drug/compound" with "dose level" and sacrificed at "time point" for measurement. From "drug/compound", you can collect more information and thus *‘making-a-bigger-box’* in *stage 3*.
+So this means this row is the gene differential expression data of liver for the  rat that was administered "drug/compound" with "dose level" and sacrificed at "time point" for measurement. From "drug/compound", you can collect more information and thus *‘making-a-bigger-box’* in **stage 3**.
 
-And colnames of expression data are gene names. So each column is gene diffrential  expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutntered when  applying machine learning techniques in Biology/Medicine. The aims of *stage 2* is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time. 
+And colnames of expression data are gene names. So each column is gene diffrential  expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutntered when  applying machine learning techniques in Biology/Medicine. The aims of **stage 2** is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time. 
 
-### pathology terms
+### pathology data
 Pathology data are pathological records corresponding to samples in expression data. 
 
 ```{r}
 pathology_train=read.csv("../TGGATEs_tutorial_secrete/data/pathology_train.csv",header = TRUE,row.names = 1)
 head(pathology_train)
 ```
-You can see we provide you with two  pathologies "Microgranuloma" and "Hypertrophy". In *stage 1* , it's up to you to  predict them sepretatly or try to predict two patholgies simultaneously (For example, by [multi-label classification](https://en.wikipedia.org/wiki/Multi-label_classification))
+You can see we provide you with two  pathologies "Microgranuloma" and "Hypertrophy". In **stage 1** , it's up to you to  predict them sepretatly or try to predict two patholgies simultaneously (For example, by [multi-label classification](https://en.wikipedia.org/wiki/Multi-label_classification))
 
 ---
 
