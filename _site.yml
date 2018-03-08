@@ -7,12 +7,12 @@ navbar:
     - text: "Easy Start"
       icon: fa-fighter-jet
       href: easy_start.html
-    - text: "Data Description"
+    - text: "Rules"
+      icon: fa-sticky-note
+      href: rules.html
+    - text: "Data preprocessing"
       icon: fa-database
       href: data_description.html
-    - text: "Final Submission"
-      icon: fa-upload
-      href: final_submission.html
     - text: "About"
       icon: fa-info-circle
       href: about.html

@@ -1,0 +1,101 @@
+---
+title: "Data Preprocessing"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this part, I will walk you through details of our data and introduce some data proprecessing procedures.  I hope you could get a clear understanding of our data and are able to generate you own training dataset after this session.  
+
+Basicaly, we will use rat in vivo liver diffrential gene expression data as training data and use the correspoding pathology terms as labels. For your quickly understanding , imagine our training data as a matrix whose rows represent samples and coloumns represent features. In more details, each sample(row) represents diffrential gene expression levels in liver for a  rat at certain time point and cetain drug dose level. And each feature(column) represents expression level of a certain gene across different samples. Each sample has a pathological record for each pathology from TG-GATEs.
+
+---
+
+## Diffrential gene expression data
+ 
+### Gene expression data 
+Before we go further, let's first introduce what is gene expression data. Gene is the basic physical and functional unit of heredity among all the species. Slight difference between genes decide individual's unique physical features. Gene controls the traits or phenotypes of species by transcripting and tranlating to RNAs and proteins. The expression level of transcription and translation  can be dedected by [microarrays](https://en.wikipedia.org/wiki/DNA_microarray) or next generation sequencing techniques(NGS), which is called gene expression data.
+
+The gene expression levels in rat in vivo liver in [TG-GATEs][Link to TG-GATEs paper] are measured by microarrays. So the results are stored in .CEL file format and all the CEL data pass the qualitity control  [QC](https://www.ncbi.nlm.nih.gov/pubmed/15364885)
+
+Then let's get a intuitive understanding of gene expression data from rat in vivo liver that administered acarbose in single-dose experiment(See below what is [single-dose experiment](#single_dose_experiment) in TG-GATEs). In the folder of "TG-GATEs/rat/in_vivo/Liver/Single/acarbose.Rat.in_vivo.Liver.Single",
+there is a folder called "celfiles" containing CEL files for each microarray result. Another Attribute.csv file in this folder includes metadata for each CEL file in "celfiles" directory. 
+
+<center><img src="images/acarbose_folder.png" width="900px"></center>
+
+
+For example, the second row in Attribute.csv file have a attribute "BARCODE" with value "3017401004"
+
+<center><img src="images/acarbose_attributes.png" width="900px"></center>
+
+
+This means this row is meatadata for "003017401004.CEL" in "celfiles" folder. 
+
+<center><img src="images/acarbose_celfiles.png" width="900px"></center>
+
+
+The attibutes "ORGAN", "COMPOMD_NAME","SPECIES","TEST_TYPE","SIN_REP_TYPE","SACRI_PERIOD" and "DOSE_level " in second row of attributes file tell us "003017401004.CEL" containing the gene expression data of liver for rat administerted acarbose, which was measured at 3 hour with dose level "control"
+
+Then we load all the CEL data in this folder and preprocess them with R packages ["affy"](https://www.bioconductor.org/packages/release/bioc/html/affy.html). This step is necessary and reasons for this  are explained in folloing section(#data_preprocesing_reasons )
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+### Diffrential gene expression data 
+But here we use diffrential gene expression data other than gene expression data mainly because of batch effect. But in contest you  could also try  gene expression data since you can get more samples in this case.
+
+
+## TG-GATEs
+
+
+### <a id="single_dose_experiment"></a> Experimental design
+
+## <a id="data_preprocessing "></a> Data preprocessing 
+
+
+## Data combination
+
+
+
+
+
+
+[Link to TG-GATEs paper]: https://www.ncbi.nlm.nih.gov/pubmed/25313160
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
