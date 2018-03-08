@@ -7,4 +7,17 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Here is easy start part
+In this contest, we will provide you with 2 collection of data that we have extracted from TG-GATEs for you. You can use these two data sets for the contest. But since data/data preprocessing is extremely important in Data Science and may have a great impact on the final results. So we recommend you to read [Data Description section](data_description.html) and try to organise data by yourself when needed. Besides, collect and concentrate data by yourself giving you a good opportunity to appreciate the real situation of Big Data and Data Science in Biology and Medicine,in my point of view,  which is the most import things you should take home after the contest. 
+
+## Drug-response gene differential expression data
+
+## pathology terms
+
+## Aims and evaluation for each stage.
+
+### Stage1 
+### Stage2
+### Stage3
+
+
+

@@ -26,7 +26,7 @@ The contest is divided into 3 stages.
 
 2. In the second stage, the participants are encouraged to explore the meaning of the gene expression data, by tools such as gene-set enrichment analysis and co-expression analysis, and to implement machine-learning strategies based on the statistics derived from such analysis  with the aim of deriving explainable models of prediction. This stage can be called the *‘unboxing stage’*, because the aim is to get better understanding of the mechanisms underlying pathologies by alternative ways of feature selection based on either bioinformatics-specific or general techniques.
 
-3. In the third, final, and optional stage, the participants are encouraged to collect publicly available information on the drugs (such as the information in the ChEMBL and the DrugBank database, see reference) and improve the machine-learning tools produced in the first with these additional information. This stage can be called the *‘making-a-bigger-box stage’*, because the aim is to improve the prediction performance using additional information besides gene expression.
+3. In the third, final, and optional stage, the participants are encouraged to collect publicly available information on the drugs (such as the information in the ChEMBL and the DrugBank database, see reference) and improve the machine-learning tools produced in the first stage with these additional information. This stage can be called the *‘making-a-bigger-box stage’*, because the aim is to improve the prediction performance using additional information besides gene expression.
 
 
 ---
