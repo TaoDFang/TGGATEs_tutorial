@@ -21,7 +21,7 @@ Actural, we use Python for all the following analysis after we get these three d
 
 * exprs_train.csv - This is data that you should use when you train the model
 
-* exprs_test.csv - With this data, you make predictions and we will calculate you scores based on unpublished data "pathology_test.csv"
+* exprs_test.csv - With this data, you make predictions and we will calculate scores for each team based on unpublished data "pathology_test.csv"
 
 * pathology_train.csv - this is the labels corrsponding to samples in exprs_train.csv file 
 
