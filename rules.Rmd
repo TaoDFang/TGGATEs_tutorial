@@ -11,9 +11,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Submission requirement in each stage
 
+In which way they can submit their work. Offline or online?
+
 reproducible code  
 
 we have to define submissoin file format to quickly calculate final score
+
+name of files. teamname_whichstage
 
 ### stage 1
 final prediction results for test data
