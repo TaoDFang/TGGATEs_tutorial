@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Submission requirement in each stage
 
+where to store the data ?
+
 In which way they can submit their work. Offline or online?
 
 reproducible code  
