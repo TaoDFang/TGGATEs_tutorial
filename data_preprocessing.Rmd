@@ -108,6 +108,95 @@ eset <- eset[apply(exprs(eset), 1, max, na.rm=TRUE)>6,]
 ### Diffrential gene expression data 
 But here we use diffrential gene expression data other than gene expression data mainly because of [batch effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3880143/) as  TG-GATEs  is a long period(10 year) project conducted  by various  institutes and companies. But you  could also try  gene expression data since you can get more samples in this case.
 
+Diffrential gene expression data means quantitative changes of gene expression level between different experimental groups.  Here we calculate diffrential gene expression for each experimental condition  compared with control experimental condition.
+
+The method we used to caculate diffrential gene expression data is called limma
+
+```{r}
+time_points=unique(pData(eset)$SACRI_PERIOD)
+limmaTG<-function(eset_timei_contrast,filename){
+   f=factor(eset_timei_contrast$DOSE_LEVEL)
+   # get dose information
+   uni_levels=unique(f)
+   level=uni_levels[-(which(uni_levels=="Control"))]
+   # get csww information,  csww contains compound type, species, in vitro/vivo and organism information 
+   csww=tail(unlist(strsplit(filename,"/")),n=1)
+   #get time information
+   timepoint=unique(pData(eset_timei_contrast)$SACRI_PERIOD)
+   # get sample name 
+   sample_name=paste(csww,timepoint,level,sep = "/")
+   design=model.matrix(~+f)
+   fit=lmFit(eset_timei_contrast,design)
+   fit=eBayes(fit)
+   nenv=new.env()
+   #add logFC data as experssion data
+   fit_topTable <- topTable(fit,coef = 2,number = nrow(fit$genes))
+   fit_exprs=matrix(fit_topTable$logFC)
+   #rownames(fit_exprs)=rownames(fit$genes)  ## errors here ,fuck 
+   rownames(fit_exprs)=fit_topTable$ProbeID  ## when using some function, you'd better understand its 
+                                             ## function exactly 
+   colnames(fit_exprs)=sample_name
+   #plot(fit_exprs,fit_topTable$logFC)
+   assign("exprs",fit_exprs,nenv)
+  
+   fit_eset=ExpressionSet(assayData = nenv)
+   fit_pheno=data.frame(time=timepoint,dose=level,csww=csww) 
+   rownames(fit_pheno)=colnames(fit_exprs)
+   pData(fit_eset)=fit_pheno
+   
+   fData(fit_eset)=fit$genes
+   return(fit_eset)
+   
+ }
+ esets=list()
+ for (i in 1:length(time_points)) {
+   eset_timei=eset[,which(pData(eset)$SACRI_PERIOD==time_points[i])]
+   dose_levels=unique(pData(eset_timei)$DOSE_LEVEL)
+   dose_levels=dose_levels[-which(dose_levels=="Control")]
+   eset_timei_contrasts=list()
+   for (ii in 1:length(dose_levels)) {
+     eset_timei_contrasts[[ii]]=eset_timei[,c(which(eset_timei$DOSE_LEVEL=="Control"),which(eset_timei$DOSE_LEVEL==dose_levels[ii]))]
+   }
+   esets[[i]]=lapply(eset_timei_contrasts, limmaTG,filename=cell_dir)
+ }
+ #combine all expressin data of this certain compound into one
+ compound_esets=list()
+ index=1
+ for (i in 1:length(esets)) {
+   for (j in 1:length(esets[[i]])) {
+     #index=(i-1)*length(esets[[i]])+j
+     compound_esets[[index]]=esets[[i]][[j]]
+     index=index+1
+   }
+ }
+ fenv=new.env()
+ #combine logFC
+ #notice toptable in diffrent in different limma analysis!!!!!!!!!!!!!!!!!!!!!!!!!
+ compound_common_features=rownames(compound_esets[[1]])
+ for (i  in 2:length(compound_esets) ) {
+   compound_common_features=intersect(compound_common_features,rownames(compound_esets[[i]]))
+ }
+ 
+ for (i in 1:length(compound_esets)) {
+   compound_esets[[i]]=compound_esets[[i]][compound_common_features,]
+ }
+ 
+ compound_exprs=sapply(compound_esets,exprs)
+ rownames(compound_exprs)=rownames(compound_esets[[1]])
+ colnames(compound_exprs)=sapply(compound_esets, function(x){colnames(exprs(x))})
+ assign("exprs",compound_exprs,fenv)
+ 
+ 
+ compound_final_eset=ExpressionSet(assayData = fenv)
+ compound_pheno=lapply(compound_esets, pData)
+ compound_pheno=do.call("rbind",compound_pheno)
+ pData(compound_final_eset)=compound_pheno
+ 
+ fData(compound_final_eset)=fData(compound_esets[[1]])
+ saveRDS(compound_final_eset,file = paste(cell_dir,".rds",sep = ""))
+```
+
+
 
 
 ## TG-GATEs
