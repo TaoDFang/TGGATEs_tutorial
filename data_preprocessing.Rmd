@@ -25,7 +25,7 @@ Before we go further, let's first introduce what is gene expression data. Gene i
 The gene expression levels in rat in vivo liver in [TG-GATEs][Link to TG-GATEs paper] are measured by microarrays. So the results are stored in .CEL file format and all the CEL data pass the qualitity control  [QC](https://www.ncbi.nlm.nih.gov/pubmed/15364885)
 
 Then let's get a intuitive understanding of gene expression data from rat in vivo liver that administered acarbose in single-dose experiment(See below what is [single-dose experiment](#single_dose_experiment) in TG-GATEs). In the folder of "TG-GATEs/rat/in_vivo/Liver/Single/acarbose.Rat.in_vivo.Liver.Single",
-there is a folder called "celfiles" containing CEL files for each microarray result. Another Attribute.csv file in this folder includes metadata for each CEL file in "celfiles" directory. 
+there is a folder called "celfiles" containing CEL files for each specific drug administered experiment. Another Attribute.csv file in this folder includes metadata for each CEL file in "celfiles" directory. 
 
 <center><img src="images/acarbose_folder.png" width="900px"></center>
 
@@ -40,24 +40,74 @@ This means this row is meatadata for "003017401004.CEL" in "celfiles" folder.
 <center><img src="images/acarbose_celfiles.png" width="900px"></center>
 
 
-The attibutes "ORGAN", "COMPOMD_NAME","SPECIES","TEST_TYPE","SIN_REP_TYPE","SACRI_PERIOD" and "DOSE_level " in second row of attributes file tell us "003017401004.CEL" containing the gene expression data of liver for rat administerted acarbose, which was measured at 3 hour with dose level "control"
+The attibutes "ORGAN", "COMPOMD_NAME","SPECIES","TEST_TYPE","SIN_REP_TYPE","SACRI_PERIOD" and "DOSE_level " in second row of attributes file tell us "003017401004.CEL" containing the gene expression data of liver for rat administerted acarbose, which was measured at 3 hour with dose level "control". Notice for each experimental condition,there are several samples(i.e. Several CELfiles) to [increase statistical power](https://www.illumina.com/Documents/products/technotes/technote_power_replicates.pdf)
 
-Then we load all the CEL data in this folder and preprocess them with R packages ["affy"](https://www.bioconductor.org/packages/release/bioc/html/affy.html). This step is necessary and reasons for this  are explained in [following section](#data_preprocesing_reasons )
+Then we load all the CEL data in this folder and preprocess them with R packages ["affy"](https://www.bioconductor.org/packages/release/bioc/html/affy.html). This is necessary and reasons for this  are explained in [This paper](https://www.ncbi.nlm.nih.gov/pubmed/14960456 )
+
+* Read all the CEL files from acarbose administered experiment by function "ReadAffy" to "AffyBatch" object
 
 ```{r}
+
+library(affy)
+cell_dir="../TGGATEs_tutorial_secrete/acarbose.Rat.in_vivo.Liver.Single"
+fns=list.celfiles(path=paste(cell_dir,"celfiles",sep = "/"),full.names=TRUE)
+data=ReadAffy(filenames = fns)
 
 ```
 
 
 
+* Then we can use function "rma" in "affy" package to preprocess our data by following steps:
+  1. Background correction 
+  2. Normaliation 
+  3. Computation of expression data 
+Function "rma"" will transfer our "AffyBatch" object into "ExpressionSet" object. ["ExpressionSet" object](https://www.bioconductor.org/packages/3.7/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) is a class frequently used  in genomics to manage high-throughput assays and experimental meatadata. 
 
 
+```{r}
+eset=rma(data,normalize = TRUE)
+head(exprs(eset))
+
+```
+
+"exprs" function returns expression data of our experiment. Columns refer to samples and rows refer to [probeset](https://www.ensembl.org/info/genome/microarray_probe_set_mapping.html) in microarray.
+
+* From "Atrribute.tsv"" file, we can add "phenoData" to "ExpressionSet" to describe samples in the experiment
+
+```{r}
+pheno=read.table(paste(cell_dir,"/Attribute.tsv",sep = ""),sep = "\t",header = TRUE,fileEncoding="latin1")
+pheno=pheno[which(pheno[,"BARCODE"]!="No ChipData"),]
+rownames(pheno)=paste("00",sub('^0+',"",pheno[,"BARCODE"]),".CEL",sep = "") 
+pheno=pheno[colnames(exprs(eset)),]
+pData(eset) = pheno
+head(pData(eset))
+```
+
+
+* Annotate probesets of microarray to gene names by [ribiosAnnotation](https://github.com/Accio/ribios/tree/master/ribiosAnnotation) to describe features in the experiment.
+Since [each gene is usually represented by more than on probeset](https://www.biostars.org/p/54632/), we use [ribiosUtils](https://github.com/Accio/ribios/tree/master/ribiosUtils) to further preprocess data to get unique gene names for our data .
+
+```{r}
+library(ribiosAnnotation)
+library(ribiosUtils)
+geneName=annotateProbesets(featureNames(eset), orthologue = TRUE)
+fData(eset) <- geneName
+eset_rmNA=eset[!is.na(fData(eset)[,"GeneID"]),]
+index_uniqueProbe=isMaxStatRow(exprs(eset_rmNA),keys = fData(eset_rmNA)[,"GeneSymbol"])
+eset=eset_rmNA[index_uniqueProbe,]
+```
+
+* After we get expression data, we remove gene with expression level less than 6 as these data are  unreliable
+```{r}
+eset <- eset[apply(exprs(eset), 1, max, na.rm=TRUE)>6,]
+```
 
 
 
 
 ### Diffrential gene expression data 
-But here we use diffrential gene expression data other than gene expression data mainly because of batch effect. But in contest you  could also try  gene expression data since you can get more samples in this case.
+But here we use diffrential gene expression data other than gene expression data mainly because of [batch effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3880143/) as  TG-GATEs  is a long period(10 year) project conducted  by various  institutes and companies. But you  could also try  gene expression data since you can get more samples in this case.
+
 
 
 ## TG-GATEs
