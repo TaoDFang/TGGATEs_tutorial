@@ -11,7 +11,7 @@
 
 
 
-<title>Data Description</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,9 +19,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
@@ -184,101 +181,6 @@ $(document).ready(function () {
 
 
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -333,59 +235,16 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Data Description</h1>
 
 </div>
 
 
-<p>In this part, I will walk you through details of our data and introduce some data proprecessing procedures. I hope you could get a clear understanding of our data and are able to generate you own training dataset after this session.</p>
-<p>Basicaly, we will use rat in vivo liver diffrential gene expression data as training data and use the correspoding pathology terms as labels. For your quickly understanding , imagine our training data as a matrix whose rows represent samples and coloumns represent features. In more details, each sample(row) represents diffrential gene expression levels in liver for a rat at certain time point and cetain drug dose level. And each feature(column) represents expression level of a certain gene across different samples. Each sample has a pathological record for each pathology from TG-GATEs.</p>
-<hr />
-<div id="diffrential-gene-expression-data" class="section level2">
-<h2>Diffrential gene expression data</h2>
-<div id="gene-expression-data" class="section level3">
-<h3>Gene expression data</h3>
-<p>Before we go further, let’s first introduce what is gene expression data. Gene is the basic physical and functional unit of heredity among all the species. Slight difference between genes decide individual’s unique physical features. Gene controls the traits or phenotypes of species by transcripting and tranlating to RNAs and proteins. The expression level of transcription and translation can be dedected by <a href="https://en.wikipedia.org/wiki/DNA_microarray">microarrays</a> or next generation sequencing techniques(NGS), which is called gene expression data.</p>
-<p>The gene expression levels in rat in vivo liver in <a href="https://www.ncbi.nlm.nih.gov/pubmed/25313160">TG-GATEs</a> are measured by microarrays. So the results are stored in .CEL file format and all the CEL data pass the qualitity control <a href="https://www.ncbi.nlm.nih.gov/pubmed/15364885">QC</a></p>
-<p>Then let’s get a intuitive understanding of gene expression data from rat in vivo liver that administered acarbose in single-dose experiment(See below what is <a href="#single_dose_experiment">single-dose experiment</a> in TG-GATEs). In the folder of “TG-GATEs/rat/in_vivo/Liver/Single/acarbose.Rat.in_vivo.Liver.Single”, there is a folder called “celfiles” containing CEL files for each microarray result. Another Attribute.csv file in this folder includes metadata for each CEL file in “celfiles” directory.</p>
-<center>
-<img src="images/acarbose_folder.png" width="900px">
-</center>
-<p>For example, the second row in Attribute.csv file have a attribute “BARCODE” with value “3017401004”</p>
-<center>
-<img src="images/acarbose_attributes.png" width="900px">
-</center>
-<p>This means this row is meatadata for “003017401004.CEL” in “celfiles” folder.</p>
-<center>
-<img src="images/acarbose_celfiles.png" width="900px">
-</center>
-<p>The attibutes “ORGAN”, “COMPOMD_NAME”,“SPECIES”,“TEST_TYPE”,“SIN_REP_TYPE”,“SACRI_PERIOD” and “DOSE_level” in second row of attributes file tell us “003017401004.CEL” containing the gene expression data of liver for rat administerted acarbose, which was measured at 3 hour with dose level “control”</p>
-<p>Then we load all the CEL data in this folder and preprocess them with R packages <a href="https://www.bioconductor.org/packages/release/bioc/html/affy.html">“affy”</a>. This step is necessary and reasons for this are explained in folloing section(#data_preprocesing_reasons )</p>
-</div>
-<div id="diffrential-gene-expression-data-1" class="section level3">
-<h3>Diffrential gene expression data</h3>
-<p>But here we use diffrential gene expression data other than gene expression data mainly because of batch effect. But in contest you could also try gene expression data since you can get more samples in this case.</p>
-</div>
-</div>
-<div id="tg-gates" class="section level2">
-<h2>TG-GATEs</h2>
-<div id="experimental-design" class="section level3">
-<h3><a id="single_dose_experiment"></a> Experimental design</h3>
-</div>
-</div>
-<div id="data-preprocessing" class="section level2">
-<h2><a id="data_preprocessing "></a> Data preprocessing</h2>
-</div>
-<div id="data-combination" class="section level2">
-<h2>Data combination</h2>
-</div>
+<p><img src="images/TGGATEs_experiments.png"></p>
 
 
 <p>Copyright &copy; 2018 F.Hoffmann-La Roche Ltd-All rights reserved.</p>
 
 
-</div>
-</div>
 
 </div>
 
