@@ -12,7 +12,7 @@ navbar:
       href: rules.html
     - text: "Data preprocessing"
       icon: fa-database
-      href: data_description.html
+      href: data_preprocessing.html
     - text: "About"
       icon: fa-info-circle
       href: about.html

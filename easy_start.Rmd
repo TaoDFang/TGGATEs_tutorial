@@ -1,6 +1,9 @@
 ---
 title: "EASY Start"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
@@ -9,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In this contest, we will provide you with 3 collection of data ([You could download in from google drive](https://drive.google.com/drive/folders/1_WYduu1b_x2Zvil9qdPlF69a6SKkF70b?usp=sharing) ) that we have extracted from TG-GATEs for you.
 
-You can use these three data sets for the contest. But since data/data preprocessing is extremely important in Data Science and may have a great impact on the final results. So we recommend you to read [Data Preprocessing](data_preprocessing.html) and try to organise data by yourself when needed. Besides, collect and concentrate data by yourself giving you a good opportunity to appreciate the real situation of Big Data and Data Science in Biology and Medicine, in my point of view,  which is the most import things you should take home after the contest. 
+You can use these three data sets for the contest. But since data/data preprocessing is extremely important in Data Science, we strongly recommend you to read [Data Preprocessing section](data_preprocessing.html) to appreciate the real situation of Big Data and Data Science in Biology and Medicine, in my point of view,  which is the most import things you should take home after the contest. 
 
 Then let's get of a general idea of our data. we show this in R but you can use Python for this purpose too. 
 Actural, we use Python for all the following analysis after we get these three data set as we can use popular machine learning([scikit-learn](http://scikit-learn.org/stable/)) and deep learning tools([Tensorflow](https://www.tensorflow.org/)) in Python. 
@@ -25,6 +28,7 @@ Actural, we use Python for all the following analysis after we get these three d
 
 * pathology_train.csv - this is the labels corrsponding to samples in exprs_train.csv file 
 
+## How to use these data
 
 ### Drug-response gene differential expression data
 
@@ -42,7 +46,7 @@ dim(exprs_train)
 As you can see, rownames of expression data have format "durg/compound_time_dose level".
 So this means this row is the gene differential expression data of liver for the  rat that was administered "drug/compound" with "dose level" and sacrificed at "time point" for measurement. From "drug/compound", you can collect more information and thus *‘making-a-bigger-box’* in **stage 3**.
 
-And colnames of expression data are gene names. So each column is gene diffrential  expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutntered when  applying machine learning techniques in Biology/Medicine. The aims of **stage 2** is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time. 
+And colnames of expression data are gene names. So each column is gene diffrential  expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutnter when  applying machine learning techniques in Biology/Medicine. The aims of **stage 2** is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time. 
 
 ### pathology data
 Pathology data are pathological records corresponding to samples in expression data. 

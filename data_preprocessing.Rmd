@@ -11,38 +11,40 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In this part, I will walk you through details of our data and introduce some data proprecessing procedures.  I hope you could get a clear understanding of our data and are able to generate you own training dataset after this session.  
+*Notice: You **don't** have to read this section for the contest*
 
-Basicaly, we will use rat in vivo liver diffrential gene expression data as training data and use the correspoding pathology terms as labels. All these data can be extracted from [TG-GATEs database](https://doi.org/10.1093/nar/gku955).  For your quickly understanding , imagine our training data as a matrix whose rows represent samples and coloumns represent features. In more details, each sample(row) represents diffrential gene expression levels in liver for a  rat at certain time point and cetain drug dose level. And each feature(column) represents expression level of a certain gene across different samples. Each sample has a pathological record for each pathology from TG-GATEs.
+In this part, I will walk you through details of our data and introduce some data preprocessing procedures.  I hope you could get a clear understanding of our data and are able to generate you own training dataset after this session.  
+
+Basically, we will use rat in vivo liver differential gene expression data as training data and use the corresponding pathology terms as labels. All these data can be extracted from [TG-GATEs database](https://doi.org/10.1093/nar/gku955).  For your quickly understanding , imagine our training data as a matrix whose rows represent samples and columns represent features. In more details, each sample(row) represents differential gene expression levels in liver for a  rat at certain time point and certain drug dose level. And each feature(column) represents expression level of a certain gene across different samples. Each sample has a pathological record for each pathology from TG-GATEs.
 
 ---
 
-## Diffrential gene expression data
  
-### Gene expression data 
-Before we go further, let's first introduce what is gene expression data. Gene is the basic physical and functional unit of heredity among all the species. Slight difference between genes decide individual's unique physical features. Gene controls the traits or phenotypes of species by transcripting and tranlating to RNAs and proteins. The expression level of transcription and translation  can be dedected by [microarrays](https://en.wikipedia.org/wiki/DNA_microarray) or next generation sequencing techniques(NGS), which is called gene expression data.
+## Gene expression data 
 
-The gene expression levels in rat in vivo liver in [TG-GATEs][Link to TG-GATEs paper] are measured by microarrays. So the results are stored in .CEL file format and all the CEL data pass the qualitity control  [QC](https://www.ncbi.nlm.nih.gov/pubmed/15364885)
+Before we go further, let's first introduce what is gene expression data. Gene is the basic physical and functional unit of heredity among all the species. Slight difference between genes decide individual's unique physical features. Gene controls the traits or phenotypes of species by transcription and translation to RNAs and proteins. The expression level of transcription and translation  can be detected by [microarrays](https://en.wikipedia.org/wiki/DNA_microarray) or next generation sequencing techniques(NGS), which is called gene expression data.
+
+The gene expression levels in rat in vivo liver in [TG-GATEs][Link to TG-GATEs paper] are measured by microarrays. So the results are stored in .CEL file format and all the CEL data pass the quality control  [QC](https://www.ncbi.nlm.nih.gov/pubmed/15364885)
 
 Then let's get a intuitive understanding of gene expression data from rat in vivo liver that administered acarbose in single-dose experiment(See below what is [single-dose experiment](#single_dose_experiment) in TG-GATEs). In the folder of "TG-GATEs/rat/in_vivo/Liver/Single/acarbose.Rat.in_vivo.Liver.Single",
 there is a folder called "celfiles" containing CEL files for each specific drug administered experiment. Another Attribute.csv file in this folder includes metadata for each CEL file in "celfiles" directory. 
 
 <center><img src="images/acarbose_folder.png" width="900px"></center>
 
-
+<br>
 For example, the second row in Attribute.csv file have a attribute "BARCODE" with value "3017401004"
 
 <center><img src="images/acarbose_attributes.png" width="900px"></center>
 
-
+<br>
 This means this row is meatadata for "003017401004.CEL" in "celfiles" folder. 
 
 <center><img src="images/acarbose_celfiles.png" width="900px"></center>
 
+<br>
+The attributes "ORGAN", "COMPOMD_NAME","SPECIES","TEST_TYPE","SIN_REP_TYPE","SACRI_PERIOD" and "DOSE_level " in second row of attributes file tell us "003017401004.CEL" containing the gene expression data of liver for rat administered acarbose, which was measured at 3 hour with dose level "control". Notice for each experimental condition,there are several samples(i.e. Several CELfiles) to [increase statistical power](https://www.illumina.com/Documents/products/technotes/technote_power_replicates.pdf).
 
-The attibutes "ORGAN", "COMPOMD_NAME","SPECIES","TEST_TYPE","SIN_REP_TYPE","SACRI_PERIOD" and "DOSE_level " in second row of attributes file tell us "003017401004.CEL" containing the gene expression data of liver for rat administerted acarbose, which was measured at 3 hour with dose level "control". Notice for each experimental condition,there are several samples(i.e. Several CELfiles) to [increase statistical power](https://www.illumina.com/Documents/products/technotes/technote_power_replicates.pdf)
-
-Then we load all the CEL data in this folder and preprocess them with R packages ["affy"](https://www.bioconductor.org/packages/release/bioc/html/affy.html). This is necessary and reasons for this  are explained in [This paper](https://www.ncbi.nlm.nih.gov/pubmed/14960456 )
+To obtain gene expression data, we load all the CEL data in this folder and preprocess them with R packages ["affy"](https://www.bioconductor.org/packages/release/bioc/html/affy.html). This is necessary and reasons for this  are explained in [This paper](https://www.ncbi.nlm.nih.gov/pubmed/14960456 )
 
 * Read all the CEL files from acarbose administered experiment by function "ReadAffy" to "AffyBatch" object
 
@@ -59,9 +61,10 @@ data=ReadAffy(filenames = fns)
 
 * Then we can use function "rma" in "affy" package to preprocess our data by following steps:
   1. Background correction 
-  2. Normaliation 
+  2. Normalization 
   3. Computation of expression data 
-Function "rma"" will transfer our "AffyBatch" object into "ExpressionSet" object. ["ExpressionSet" object](https://www.bioconductor.org/packages/3.7/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) is a class frequently used  in genomics to manage high-throughput assays and experimental meatadata. 
+  
+Function "rma"" will transfer our "AffyBatch" object into "ExpressionSet" object.  ["ExpressionSet" object](https://www.bioconductor.org/packages/3.7/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) is a class frequently used  in genomics to manage high-throughput assays and experimental meatadata. 
 
 
 ```{r}
@@ -72,7 +75,7 @@ head(exprs(eset))
 
 "exprs" function returns expression data of our experiment. Columns refer to samples and rows refer to [probeset](https://www.ensembl.org/info/genome/microarray_probe_set_mapping.html) in microarray.
 
-* From "Atrribute.tsv"" file, we can add "phenoData" to "ExpressionSet" to describe samples in the experiment
+* From "Attribute.tsv"" file, we can add "phenoData" to "ExpressionSet" to describe samples in the experiment
 
 ```{r}
 pheno=read.table(paste(cell_dir,"/Attribute.tsv",sep = ""),sep = "\t",header = TRUE,fileEncoding="latin1")
@@ -105,15 +108,15 @@ eset <- eset[apply(exprs(eset), 1, max, na.rm=TRUE)>6,]
 
 
 
-### Diffrential gene expression data 
+## Diffrential gene expression data 
 
-But here we use diffrential gene expression data other than gene expression data mainly because of [batch effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3880143/) as  TG-GATEs  is a long period(10 year) project conducted  by various  institutes and companies. But you  could also try  gene expression data since you can get more samples in this way.
+But here we use differential gene expression data other than gene expression data mainly because of [batch effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3880143/) as  TG-GATEs  is a long period(10 years) project conducted  by various  institutes and companies.
 
-Diffrential gene expression data means quantitative changes of gene expression level between different experimental groups.  Here we calculate diffrential gene expression for each experimental condition  compared with control experimental condition.
+Differential gene expression data means quantitative changes of gene expression level between different experimental groups.  Here we calculate differential gene expression for each experimental condition  compared with control experimental condition.
 
-The method we used to caculate diffrential gene expression data is called [limma](https://www.ncbi.nlm.nih.gov/pubmed/16646809),which is a R package that fit a linear model to the expression data for each gene. By elaborate design matrix and contrast matrix, we can get various statistics from limma to (e.g. log folder changes and moderated t-statistics) describe diffrential gene expression data.  
+The method we used to calculate differential gene expression data is called [limma](https://www.ncbi.nlm.nih.gov/pubmed/16646809),which is a R package that fit a linear model to the expression data for each gene. By elaborate design matrix and contrast matrix, we can get various statistics from limma to (e.g. log folder changes and moderated t-statistics) describe differential gene expression data.  
 
-Below is the code we used to obtain diffrential gene expresssion data for one drug.
+Below is the code we used to obtain differential gene expression data for one drug.
 
 ```{r}
 library(limma)
@@ -205,7 +208,7 @@ for (i in 1:length(time_points)) {
  saveRDS(compound_final_eset,file = paste(cell_dir,".rds",sep = ""))
 ```
 
-From above, we get a "ExpressionSet" object storing diffrential gene expression data from a specific drug experiment.
+From above, we get a "ExpressionSet" object storing differential gene expression data from a specific drug experiment.
 We write it into a ".rds" R data for further data combination 
 
 ```{r}
@@ -216,18 +219,17 @@ head(drug_exprs)
 
 
 
+
+## Experimental design  in  TG-GATEs
+
+There are two types of studies to measure gene expression data from rat in vivo liver : single-dose study and repeat-dose study.  [" For single-dose experiments, groups of 20 animals were administered a compound and then five animals/time point were sacrificed at 3, 6, 9 or 24 h after administration. For repeated-dose experiments, groups of 20 animals received a single dose per day of a compound and five animals/time point were sacrificed at 4, 8, 15 or 29 days (i.e. 24 h after the respective final administration at 3, 7, 14 or 28 days )" ]([Link to TG-GATEs paper])
+
+<img src="images/TGGATEs_experiments.png" width="1200px">
+
+
 ## Data combination
 
-### Experimental design  in  TG-GATEs
-
-There are two types of studies to measure gene expression data from rat in vivo liver : single-dose study and repeat-dose study. ["For single-dose experiments, groups of 20 animals were administered a compound and then five animals/time point were sacrificed at 3, 6, 9 or 24 h after administration. For repeated-dose experiments, groups of 20 animals received a single dose per day of a compound and five animals/time point were sacrificed at 4, 8, 15 or 29 days (i.e. 24 h after the respective final administration at 3, 7, 14 or 28 days)"]([Link to TG-GATEs paper])
-
-<center><img src="images/TGGATEs_experiments.png" width="900px"></center>
-
-
-### Data combination
-
-<a name="single_dose_experiment"></a>In data combination step, we combine diffrential gene expression data(i.e. ".rds" data we stored in data preprocess step) from diffrent compounds in two types of studies. Besides, from pathology information in TG-GATEs,  we extract pathology terms for correspoding samples. Plese see the [Easy Start section ](easy_start.html) for final data format. 
+<a name="single_dose_experiment"></a>In data combination step, we combine differential gene expression data(i.e. ".rds" data we stored in data preprocessing step) from different compounds in two types of studies. Besides, from pathology information in TG-GATEs,  we extract pathology terms for corresponding samples. Please see the [Easy Start section ](easy_start.html) for final data format. 
 
 
 

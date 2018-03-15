@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
@@ -181,6 +184,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -210,7 +308,7 @@ $(document).ready(function () {
   </a>
 </li>
 <li>
-  <a href="data_description.html">
+  <a href="data_preprocessing.html">
     <span class="fa fa-database"></span>
      
     Data preprocessing
@@ -241,7 +339,7 @@ $(document).ready(function () {
 
 
 <p>In this contest, we will provide you with 3 collection of data (<a href="https://drive.google.com/drive/folders/1_WYduu1b_x2Zvil9qdPlF69a6SKkF70b?usp=sharing">You could download in from google drive</a> ) that we have extracted from TG-GATEs for you.</p>
-<p>You can use these three data sets for the contest. But since data/data preprocessing is extremely important in Data Science and may have a great impact on the final results. So we recommend you to read <a href="data_preprocessing.html">Data Preprocessing</a> and try to organise data by yourself when needed. Besides, collect and concentrate data by yourself giving you a good opportunity to appreciate the real situation of Big Data and Data Science in Biology and Medicine, in my point of view, which is the most import things you should take home after the contest.</p>
+<p>You can use these three data sets for the contest. But since data/data preprocessing is extremely important in Data Science, we strongly recommend you to read <a href="data_preprocessing.html">Data Preprocessing section</a> to appreciate the real situation of Big Data and Data Science in Biology and Medicine, in my point of view, which is the most import things you should take home after the contest.</p>
 <p>Then let’s get of a general idea of our data. we show this in R but you can use Python for this purpose too. Actural, we use Python for all the following analysis after we get these three data set as we can use popular machine learning(<a href="http://scikit-learn.org/stable/">scikit-learn</a>) and deep learning tools(<a href="https://www.tensorflow.org/">Tensorflow</a>) in Python.</p>
 <hr />
 <div id="data-description" class="section level2">
@@ -251,6 +349,9 @@ $(document).ready(function () {
 <li><p>exprs_test.csv - With this data, you make predictions and we will calculate scores for each team based on unpublished data “pathology_test.csv”</p></li>
 <li><p>pathology_train.csv - this is the labels corrsponding to samples in exprs_train.csv file</p></li>
 </ul>
+</div>
+<div id="how-to-use-these-data" class="section level2">
+<h2>How to use these data</h2>
 <div id="drug-response-gene-differential-expression-data" class="section level3">
 <h3>Drug-response gene differential expression data</h3>
 <p>“exprs” data here are drug-response gene differential expression data of rat in vivo liver collected from TG-GATEs. For the details, please check <a href="data_preprocessing.html">Data Preprocessing section</a>. But if you want to get start as soon as possible, you can regard it just as a matrix whose rows are samples and columns are features</p>
@@ -274,7 +375,7 @@ head(exprs_train[,1:6])</code></pre>
 <pre class="r"><code>dim(exprs_train)</code></pre>
 <pre><code>## [1] 2822 5613</code></pre>
 <p>As you can see, rownames of expression data have format “durg/compound_time_dose level”. So this means this row is the gene differential expression data of liver for the rat that was administered “drug/compound” with “dose level” and sacrificed at “time point” for measurement. From “drug/compound”, you can collect more information and thus <em>‘making-a-bigger-box’</em> in <strong>stage 3</strong>.</p>
-<p>And colnames of expression data are gene names. So each column is gene diffrential expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutntered when applying machine learning techniques in Biology/Medicine. The aims of <strong>stage 2</strong> is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time.</p>
+<p>And colnames of expression data are gene names. So each column is gene diffrential expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutnter when applying machine learning techniques in Biology/Medicine. The aims of <strong>stage 2</strong> is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time.</p>
 </div>
 <div id="pathology-data" class="section level3">
 <h3>pathology data</h3>
@@ -297,6 +398,8 @@ head(pathology_train)</code></pre>
 <p>Copyright &copy; 2018 F.Hoffmann-La Roche Ltd-All rights reserved.</p>
 
 
+</div>
+</div>
 
 </div>
 
