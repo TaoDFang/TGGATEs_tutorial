@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In this part, I will walk you through details of our data and introduce some data proprecessing procedures.  I hope you could get a clear understanding of our data and are able to generate you own training dataset after this session.  
 
-Basicaly, we will use rat in vivo liver diffrential gene expression data as training data and use the correspoding pathology terms as labels. For your quickly understanding , imagine our training data as a matrix whose rows represent samples and coloumns represent features. In more details, each sample(row) represents diffrential gene expression levels in liver for a  rat at certain time point and cetain drug dose level. And each feature(column) represents expression level of a certain gene across different samples. Each sample has a pathological record for each pathology from TG-GATEs.
+Basicaly, we will use rat in vivo liver diffrential gene expression data as training data and use the correspoding pathology terms as labels. All these data can be extracted from [TG-GATEs database](https://doi.org/10.1093/nar/gku955).  For your quickly understanding , imagine our training data as a matrix whose rows represent samples and coloumns represent features. In more details, each sample(row) represents diffrential gene expression levels in liver for a  rat at certain time point and cetain drug dose level. And each feature(column) represents expression level of a certain gene across different samples. Each sample has a pathological record for each pathology from TG-GATEs.
 
 ---
 
@@ -106,14 +106,20 @@ eset <- eset[apply(exprs(eset), 1, max, na.rm=TRUE)>6,]
 
 
 ### Diffrential gene expression data 
-But here we use diffrential gene expression data other than gene expression data mainly because of [batch effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3880143/) as  TG-GATEs  is a long period(10 year) project conducted  by various  institutes and companies. But you  could also try  gene expression data since you can get more samples in this case.
+
+But here we use diffrential gene expression data other than gene expression data mainly because of [batch effect](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3880143/) as  TG-GATEs  is a long period(10 year) project conducted  by various  institutes and companies. But you  could also try  gene expression data since you can get more samples in this way.
 
 Diffrential gene expression data means quantitative changes of gene expression level between different experimental groups.  Here we calculate diffrential gene expression for each experimental condition  compared with control experimental condition.
 
-The method we used to caculate diffrential gene expression data is called limma
+The method we used to caculate diffrential gene expression data is called [limma](https://www.ncbi.nlm.nih.gov/pubmed/16646809),which is a R package that fit a linear model to the expression data for each gene. By elaborate design matrix and contrast matrix, we can get various statistics from limma to (e.g. log folder changes and moderated t-statistics) describe diffrential gene expression data.  
+
+Below is the code we used to obtain diffrential gene expresssion data for one drug.
 
 ```{r}
-time_points=unique(pData(eset)$SACRI_PERIOD)
+library(limma)
+# the function used to calculate diffrential gene expression data 
+# regard experiment with dose level "control" and earliest time point as control group 
+
 limmaTG<-function(eset_timei_contrast,filename){
    f=factor(eset_timei_contrast$DOSE_LEVEL)
    # get dose information
@@ -129,11 +135,11 @@ limmaTG<-function(eset_timei_contrast,filename){
    fit=lmFit(eset_timei_contrast,design)
    fit=eBayes(fit)
    nenv=new.env()
-   #add logFC data as experssion data
+   #add logFC data as differential gene  experssion data
    fit_topTable <- topTable(fit,coef = 2,number = nrow(fit$genes))
    fit_exprs=matrix(fit_topTable$logFC)
    #rownames(fit_exprs)=rownames(fit$genes)  ## errors here ,fuck 
-   rownames(fit_exprs)=fit_topTable$ProbeID  ## when using some function, you'd better understand its 
+   rownames(fit_exprs)=fit_topTable$GeneSymbol  ## when using some function, you'd better understand its 
                                              ## function exactly 
    colnames(fit_exprs)=sample_name
    #plot(fit_exprs,fit_topTable$logFC)
@@ -147,9 +153,13 @@ limmaTG<-function(eset_timei_contrast,filename){
    fData(fit_eset)=fit$genes
    return(fit_eset)
    
- }
- esets=list()
- for (i in 1:length(time_points)) {
+}
+
+# obtain all the experimental time points 
+time_points=unique(pData(eset)$SACRI_PERIOD)
+esets=list()
+# loop used to calculate diffrential gene expression data for all the experimental groups compared with corrsponding control gruops
+for (i in 1:length(time_points)) {
    eset_timei=eset[,which(pData(eset)$SACRI_PERIOD==time_points[i])]
    dose_levels=unique(pData(eset_timei)$DOSE_LEVEL)
    dose_levels=dose_levels[-which(dose_levels=="Control")]
@@ -158,20 +168,19 @@ limmaTG<-function(eset_timei_contrast,filename){
      eset_timei_contrasts[[ii]]=eset_timei[,c(which(eset_timei$DOSE_LEVEL=="Control"),which(eset_timei$DOSE_LEVEL==dose_levels[ii]))]
    }
    esets[[i]]=lapply(eset_timei_contrasts, limmaTG,filename=cell_dir)
- }
- #combine all expressin data of this certain compound into one
+}
+
+ #combine all diffrential gene expression data of this certain compound into one
  compound_esets=list()
  index=1
  for (i in 1:length(esets)) {
    for (j in 1:length(esets[[i]])) {
-     #index=(i-1)*length(esets[[i]])+j
      compound_esets[[index]]=esets[[i]][[j]]
      index=index+1
    }
  }
  fenv=new.env()
- #combine logFC
- #notice toptable in diffrent in different limma analysis!!!!!!!!!!!!!!!!!!!!!!!!!
+
  compound_common_features=rownames(compound_esets[[1]])
  for (i  in 2:length(compound_esets) ) {
    compound_common_features=intersect(compound_common_features,rownames(compound_esets[[i]]))
@@ -196,20 +205,29 @@ limmaTG<-function(eset_timei_contrast,filename){
  saveRDS(compound_final_eset,file = paste(cell_dir,".rds",sep = ""))
 ```
 
+From above, we get a "ExpressionSet" object storing diffrential gene expression data from a specific drug experiment.
+We write it into a ".rds" R data for further data combination 
+
+```{r}
+drug_exprs=exprs(compound_final_eset)
+head(drug_exprs)
+```
 
 
-
-## TG-GATEs
-
-
-### <a id="single_dose_experiment"></a> Experimental design
-
-## <a id="data_preprocessing_reasons"></a> Data preprocessing 
-
-why data preprocessing
 
 
 ## Data combination
+
+### Experimental design  in  TG-GATEs
+
+There are two types of studies to measure gene expression data from rat in vivo liver : single-dose study and repeat-dose study. ["For single-dose experiments, groups of 20 animals were administered a compound and then five animals/time point were sacrificed at 3, 6, 9 or 24 h after administration. For repeated-dose experiments, groups of 20 animals received a single dose per day of a compound and five animals/time point were sacrificed at 4, 8, 15 or 29 days (i.e. 24 h after the respective final administration at 3, 7, 14 or 28 days)"]([Link to TG-GATEs paper])
+
+<center><img src="images/TGGATEs_experiments.png" width="900px"></center>
+
+
+### Data combination
+
+<a name="single_dose_experiment"></a>In data combination step, we combine diffrential gene expression data(i.e. ".rds" data we stored in data preprocess step) from diffrent compounds in two types of studies. Besides, from pathology information in TG-GATEs,  we extract pathology terms for correspoding samples. Plese see the [Easy Start section ](easy_start.html) for final data format. 
 
 
 
