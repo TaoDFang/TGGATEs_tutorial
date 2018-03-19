@@ -14,7 +14,7 @@ In this contest, we will provide you with 3 collection of data ([You could downl
 
 You can use these three data sets for the contest. But since data/data preprocessing is extremely important in Data Science, we strongly recommend you to read [Data Preprocessing section](data_preprocessing.html) to appreciate the real situation of Big Data and Data Science in Biology and Medicine, in my point of view,  which is the most import things you should take home after the contest. 
 
-Then let's get of a general idea of our data. we show this in R but you can use Python for this purpose too. 
+Then let's get of a general idea of our data. we show this in R but you can use other programming languages(e.g. Python and Matlab) for this purpose too. 
 Actural, we use Python for all the following analysis after we get these three data set as we can use popular machine learning([scikit-learn](http://scikit-learn.org/stable/)) and deep learning tools([Tensorflow](https://www.tensorflow.org/)) in Python. 
 
 ---

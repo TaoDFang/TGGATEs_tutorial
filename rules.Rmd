@@ -1,6 +1,9 @@
 ---
 title: "Rules"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
@@ -9,31 +12,32 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Team composition
 
-## Submission requirement in each stage
+Each team has to consist of **3 people** and has a unique team name.
 
-where to store the data ?
+---
 
-In which way they can submit their work. Offline or online?
+## Submission requirements
 
-reproducible code  
+Each team need to submit their **reproducible code** at the end of contest.
 
-we have to define submissoin file format to quickly calculate final score
+At each stage, each team submit a **CSV format file** containing final prediction results  at the end of contest.
 
-name of files. teamname_whichstage
+The **file name** should be in this format: Team name_stage index(e.g. RocheTeam_stage1). 
 
-### stage 1
-final prediction results for test data
+The submission at each stage should have 3 columns. The First column is headed by "sample name" which contains name for each sample. The second and third columns are "Microgranuloma" and "Hypertrophy" that contains prediction for each pathology.
+<br>
 
-### stage 2
-final prediction results and number of features that you selected 
+<img src="images/format.png">
+<br>
 
-### stage 3
-final prediction results for test data 
-
+---
 
 
-## Requirement for Presentation.(Time, structure, )
-How many teams?
+## Presentation Requirement
+
+Each team have 10 minutes for the presentation. 
+Each team need to mention which method they tried at stage2 and number of features that they used for prediction.
+For stage3, participants should introduce what is additional information they used to increase prediction power.   
 
 
 ---
