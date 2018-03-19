@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 This website is bulit to work you through the details of Case Challenge used in **EESTech
 Challenge 2018 (Swiss local round)**.
 
-Please feel free to contact **Tao Fang** (<tao.fang@roche.com>) or *Jitao David Zhang* (<jitao_david.zhang@roche.com>)  if you have any question abouth the case. 
+Please feel free to contact *Tao Fang* (<tao.fang@roche.com>) or *Jitao David Zhang* (<jitao_david.zhang@roche.com>)  if you have any question abouth the case. 
 
 
 ---

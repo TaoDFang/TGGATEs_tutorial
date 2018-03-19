@@ -363,35 +363,8 @@ div.tocify {
 <ul>
 <li>Read all the CEL files from acarbose administered experiment by function “ReadAffy” to “AffyBatch” object</li>
 </ul>
-<pre class="r"><code>library(affy)</code></pre>
-<pre><code>## Loading required package: BiocGenerics</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
-<pre><code>## 
-## Attaching package: &#39;BiocGenerics&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-##     clusterExport, clusterMap, parApply, parCapply, parLapply,
-##     parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     IQR, mad, xtabs</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     anyDuplicated, append, as.data.frame, cbind, colnames,
-##     do.call, duplicated, eval, evalq, Filter, Find, get, grep,
-##     grepl, intersect, is.unsorted, lapply, lengths, Map, mapply,
-##     match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
-##     Position, rank, rbind, Reduce, rownames, sapply, setdiff,
-##     sort, table, tapply, union, unique, unsplit, which, which.max,
-##     which.min</code></pre>
-<pre><code>## Loading required package: Biobase</code></pre>
-<pre><code>## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with
-##     &#39;browseVignettes()&#39;. To cite Bioconductor, see
-##     &#39;citation(&quot;Biobase&quot;)&#39;, and for packages &#39;citation(&quot;pkgname&quot;)&#39;.</code></pre>
-<pre class="r"><code>cell_dir=&quot;../TGGATEs_tutorial_secrete/acarbose.Rat.in_vivo.Liver.Single&quot;
+<pre class="r"><code>library(affy)
+cell_dir=&quot;../TGGATEs_tutorial_secrete/acarbose.Rat.in_vivo.Liver.Single&quot;
 fns=list.celfiles(path=paste(cell_dir,&quot;celfiles&quot;,sep = &quot;/&quot;),full.names=TRUE)
 data=ReadAffy(filenames = fns)</code></pre>
 <ul>
@@ -404,11 +377,6 @@ data=ReadAffy(filenames = fns)</code></pre>
 </ol>
 <p>Function “rma”&quot; will transfer our “AffyBatch” object into “ExpressionSet” object. <a href="https://www.bioconductor.org/packages/3.7/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf">“ExpressionSet” object</a> is a class frequently used in genomics to manage high-throughput assays and experimental meatadata.</p>
 <pre class="r"><code>eset=rma(data,normalize = TRUE)</code></pre>
-<pre><code>## Warning: replacing previous import &#39;AnnotationDbi::tail&#39; by &#39;utils::tail&#39;
-## when loading &#39;rat2302cdf&#39;</code></pre>
-<pre><code>## Warning: replacing previous import &#39;AnnotationDbi::head&#39; by &#39;utils::head&#39;
-## when loading &#39;rat2302cdf&#39;</code></pre>
-<pre><code>## </code></pre>
 <pre><code>## Background correcting
 ## Normalizing
 ## Calculating Expression</code></pre>
@@ -647,13 +615,8 @@ eset=eset_rmNA[index_uniqueProbe,]</code></pre>
 <p>Differential gene expression data means quantitative changes of gene expression level between different experimental groups. Here we calculate differential gene expression for each experimental condition compared with control experimental condition.</p>
 <p>The method we used to calculate differential gene expression data is called <a href="https://www.ncbi.nlm.nih.gov/pubmed/16646809">limma</a>,which is a R package that fit a linear model to the expression data for each gene. By elaborate design matrix and contrast matrix, we can get various statistics from limma to (e.g. log folder changes and moderated t-statistics) describe differential gene expression data.</p>
 <p>Below is the code we used to obtain differential gene expression data for one drug.</p>
-<pre class="r"><code>library(limma)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;limma&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:BiocGenerics&#39;:
-## 
-##     plotMA</code></pre>
-<pre class="r"><code># the function used to calculate diffrential gene expression data 
+<pre class="r"><code>library(limma)
+# the function used to calculate diffrential gene expression data 
 # regard experiment with dose level &quot;control&quot; and earliest time point as control group 
 
 limmaTG&lt;-function(eset_timei_contrast,filename){
