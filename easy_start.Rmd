@@ -10,23 +10,29 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In this contest, we will provide you with 3 collection of data ([You could download in from google drive](https://drive.google.com/drive/folders/1_WYduu1b_x2Zvil9qdPlF69a6SKkF70b?usp=sharing) ) that we have extracted from TG-GATEs for you.
+In this contest, we will provide you with 5 collection of data ([You could download in from google drive](https://drive.google.com/drive/folders/1_WYduu1b_x2Zvil9qdPlF69a6SKkF70b?usp=sharing) ) that we have extracted from TG-GATEs for you.
 
-You can use these three data sets for the contest. But since data/data preprocessing is extremely important in Data Science, we strongly recommend you to read [Data Preprocessing section](data_preprocessing.html) to appreciate the real situation of Big Data and Data Science in Biology and Medicine, in my point of view,  which is the most import things you should take home after the contest. 
+You can use these five data sets for the contest. But since data/data preprocessing is extremely important in Data Science, we strongly recommend you to read [Data Preprocessing section](data_preprocessing.html) to appreciate the real situation of Big Data and Data Science in Biology and Medicine, in my point of view,  which is the most import things you should take home after the contest. 
 
 Then let's get of a general idea of our data. we show this in R but you can use other programming languages(e.g. Python and Matlab) for this purpose too. 
-Actural, we use Python for all the following analysis after we get these three data set as we can use popular machine learning([scikit-learn](http://scikit-learn.org/stable/)) and deep learning tools([Tensorflow](https://www.tensorflow.org/)) in Python. 
+Actural, we use Python for all the following analysis after we get these five data set as we can use popular machine learning([scikit-learn](http://scikit-learn.org/stable/)) and deep learning tools([Tensorflow](https://www.tensorflow.org/)) in Python. 
 
 ---
 
 
 ## Data description
 
-* exprs_train.csv - This is data that you should use when you train the model
+* exprs_train.csv - This is drug-response gene differential expression data that you should use when you train the model
 
 * exprs_test.csv - With this data, you make predictions and we will calculate scores for each team based on unpublished data "pathology_test.csv"
 
-* pathology_train.csv - this is the labels corrsponding to samples in exprs_train.csv file 
+* pathology_train.csv - This is the labels corrsponding to samples in exprs_train.csv file 
+
+* go.bp.roche.symbols.gmt - This is the GMT format file  containing gene sets/pathways information from [MSigDB ](http://software.broadinstitute.org/gsea/msigdb) 
+
+* path.reactomeV55.roche.symbols.gmt - This is the GMT format file  containing gene set/pathway information from [reactome](https://reactome.org/download-data) 
+
+
 
 ## How to use these data
 
@@ -55,7 +61,14 @@ Pathology data are pathological records corresponding to samples in expression d
 pathology_train=read.csv("../TGGATEs_tutorial_secrete/data/pathology_train.csv",header = TRUE,row.names = 1)
 head(pathology_train)
 ```
-You can see we provide you with two  pathologies "Microgranuloma" and "Hypertrophy". In **stage 1** , it's up to you to  predict them sepretatly or try to predict two patholgies simultaneously (For example, by [multi-label classification](https://en.wikipedia.org/wiki/Multi-label_classification))
+You can see we provide you with three  pathologies "Microgranuloma", Increasedmitosis and "Hypertrophy". During contest , it's up to you to  predict them sepretatly or try to predict three patholgies simultaneously (For example, by [multi-label classification](https://en.wikipedia.org/wiki/Multi-label_classification))
+
+### Pathway data
+
+Two GMT format files contain pathway/gene set information you can exploit if you decide to use gene-set enrichment analysis for feature selection.
+
+Each row in [gmt format file](https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GMT:_Gene_Matrix_Transposed_file_format_.28.2A.gmt.29) is  a geneset, which is described by "gene set name", "gene set description" and  the genes in the gene set. 
+
 
 ---
 

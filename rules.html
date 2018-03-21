@@ -348,12 +348,22 @@ div.tocify {
 <p>Each team need to submit their <strong>reproducible code</strong> at the end of contest.</p>
 <p>At each stage, each team submit a <strong>CSV format file</strong> containing final prediction results at the end of contest.</p>
 <p>The <strong>file name</strong> should be in this format: Team name_stage index(e.g. RocheTeam_stage1).</p>
-<p>The submission at each stage should have 3 columns. The First column is headed by “sample name” which contains name for each sample. The second and third columns are “Microgranuloma” and “Hypertrophy” that contains prediction for each pathology. <br></p>
-<p><img src="images/format.png"> <br></p>
+<p>The submission at each stage should have 4 columns. The First column is headed by “sample name” which contains name for each sample. The 2-4 columns are “Microgranuloma”,“Increasedmitosis” and “Hypertrophy” that contain predictions for each pathology. <br></p>
+<p><img src="images/format.png"></p>
+<p><br></p>
+<pre class="r"><code>pathology_prediction=read.csv(&quot;../TGGATEs_tutorial_secrete/data/pathology_prediction.csv&quot;,header = TRUE,row.names = 1)
+head(pathology_prediction)</code></pre>
+<pre><code>##                           Microgranuloma Increasedmitosis Hypertrophy
+## enalapril_9 hr_High                    0                0           0
+## allyl_alcohol_4 day_Low                0                0           0
+## isoniazid_8 day_Middle                 0                0           0
+## clomipramine_8 day_Middle              0                0           0
+## rotenone_6 hr_High                     0                0           0
+## nitrofurantoin_8 day_High              0                0           0</code></pre>
 <hr />
 </div>
-<div id="presentation-requirement" class="section level2">
-<h2>Presentation Requirement</h2>
+<div id="presentation-requirements" class="section level2">
+<h2>Presentation Requirements</h2>
 <p>Each team have 10 minutes for the presentation.</p>
 <p>Each team need to mention which method they tried at stage2 and number of features that they used for prediction.</p>
 <p>For stage3, participants should introduce what is additional information they used to increase prediction power.</p>

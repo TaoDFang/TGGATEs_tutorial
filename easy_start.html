@@ -338,16 +338,18 @@ div.tocify {
 </div>
 
 
-<p>In this contest, we will provide you with 3 collection of data (<a href="https://drive.google.com/drive/folders/1_WYduu1b_x2Zvil9qdPlF69a6SKkF70b?usp=sharing">You could download in from google drive</a> ) that we have extracted from TG-GATEs for you.</p>
-<p>You can use these three data sets for the contest. But since data/data preprocessing is extremely important in Data Science, we strongly recommend you to read <a href="data_preprocessing.html">Data Preprocessing section</a> to appreciate the real situation of Big Data and Data Science in Biology and Medicine, in my point of view, which is the most import things you should take home after the contest.</p>
-<p>Then let’s get of a general idea of our data. we show this in R but you can use other programming languages(e.g. Python and Matlab) for this purpose too. Actural, we use Python for all the following analysis after we get these three data set as we can use popular machine learning(<a href="http://scikit-learn.org/stable/">scikit-learn</a>) and deep learning tools(<a href="https://www.tensorflow.org/">Tensorflow</a>) in Python.</p>
+<p>In this contest, we will provide you with 5 collection of data (<a href="https://drive.google.com/drive/folders/1_WYduu1b_x2Zvil9qdPlF69a6SKkF70b?usp=sharing">You could download in from google drive</a> ) that we have extracted from TG-GATEs for you.</p>
+<p>You can use these five data sets for the contest. But since data/data preprocessing is extremely important in Data Science, we strongly recommend you to read <a href="data_preprocessing.html">Data Preprocessing section</a> to appreciate the real situation of Big Data and Data Science in Biology and Medicine, in my point of view, which is the most import things you should take home after the contest.</p>
+<p>Then let’s get of a general idea of our data. we show this in R but you can use other programming languages(e.g. Python and Matlab) for this purpose too. Actural, we use Python for all the following analysis after we get these five data set as we can use popular machine learning(<a href="http://scikit-learn.org/stable/">scikit-learn</a>) and deep learning tools(<a href="https://www.tensorflow.org/">Tensorflow</a>) in Python.</p>
 <hr />
 <div id="data-description" class="section level2">
 <h2>Data description</h2>
 <ul>
-<li><p>exprs_train.csv - This is data that you should use when you train the model</p></li>
+<li><p>exprs_train.csv - This is drug-response gene differential expression data that you should use when you train the model</p></li>
 <li><p>exprs_test.csv - With this data, you make predictions and we will calculate scores for each team based on unpublished data “pathology_test.csv”</p></li>
-<li><p>pathology_train.csv - this is the labels corrsponding to samples in exprs_train.csv file</p></li>
+<li><p>pathology_train.csv - This is the labels corrsponding to samples in exprs_train.csv file</p></li>
+<li><p>go.bp.roche.symbols.gmt - This is the GMT format file containing gene sets/pathways information from <a href="http://software.broadinstitute.org/gsea/msigdb">MSigDB</a></p></li>
+<li><p>path.reactomeV55.roche.symbols.gmt - This is the GMT format file containing gene set/pathway information from <a href="https://reactome.org/download-data">reactome</a></p></li>
 </ul>
 </div>
 <div id="how-to-use-these-data" class="section level2">
@@ -358,20 +360,20 @@ div.tocify {
 <p>We load exprs_train data in R and explain a bit more as you will need this knowledge in stage two and three.</p>
 <pre class="r"><code>exprs_train=read.csv(&quot;../TGGATEs_tutorial_secrete/data/exprs_train.csv&quot;,header = TRUE,row.names = 1)
 head(exprs_train[,1:6])</code></pre>
-<pre><code>##                                      SART3       MIEN1         IMP4
-## 2-nitrofluorene_24 hr_Middle    0.73327278 -0.45495492  0.693705231
-## trimethadione_9 hr_High         0.18103023  0.11669456  0.069029405
-## chlormezanone_29 day_High      -0.24313610  0.09928480  0.124773180
-## carbon_tetrachloride_8 day_Low -0.18118338  0.02793824  0.003757397
-## amitriptyline_9 hr_Low         -0.08628885  0.06813249  0.070277935
-## nimesulide_15 day_Low           0.04427400 -0.17457010 -0.265567300
-##                                      SAR1B      PPHLN1        SSR3
-## 2-nitrofluorene_24 hr_Middle    0.09767067  0.39510401 -0.66638558
-## trimethadione_9 hr_High         0.11100383  0.19813255 -0.04915914
-## chlormezanone_29 day_High      -0.03328391 -0.10490141  0.14230696
-## carbon_tetrachloride_8 day_Low  0.02106385  0.06762736  0.04519068
-## amitriptyline_9 hr_Low         -0.10053169 -0.10402111 -0.08149544
-## nimesulide_15 day_Low          -0.04297022 -0.23022460 -0.01856702</code></pre>
+<pre><code>##                                 SART3       MIEN1         IMP4       SAR1B
+## omeprazole_3 hr_Low      -0.136554174 -0.11181198 -0.218282335 -0.03260668
+## hydroxyzine_4 day_Middle -0.158193103 -0.04118753  0.070575646 -0.05022884
+## hydroxyzine_29 day_Low   -0.005548889 -0.05259548 -0.168798439  0.06060698
+## quinidine_8 day_Middle   -0.065046300 -0.07373302 -0.007335606  0.08516626
+## disopyramide_6 hr_High   -0.041048175 -0.07277274  0.067440315  0.16439248
+## diltiazem_6 hr_High      -0.084768276  0.21114965  0.220124107  0.11420903
+##                               PPHLN1        SSR3
+## omeprazole_3 hr_Low      -0.16402278 -0.14767145
+## hydroxyzine_4 day_Middle -0.02678692 -0.18726024
+## hydroxyzine_29 day_Low   -0.04301561  0.01234981
+## quinidine_8 day_Middle   -0.08804269 -0.22610470
+## disopyramide_6 hr_High    0.19531008 -0.02047350
+## diltiazem_6 hr_High       0.21623079  0.31194707</code></pre>
 <pre class="r"><code>dim(exprs_train)</code></pre>
 <pre><code>## [1] 2822 5613</code></pre>
 <p>As you can see, rownames of expression data have format “durg/compound_time_dose level”. So this means this row is the gene differential expression data of liver for the rat that was administered “drug/compound” with “dose level” and sacrificed at “time point” for measurement. From “drug/compound”, you can collect more information and thus <em>‘making-a-bigger-box’</em> in <strong>stage 3</strong>.</p>
@@ -382,14 +384,19 @@ head(exprs_train[,1:6])</code></pre>
 <p>Pathology data are pathological records corresponding to samples in expression data.</p>
 <pre class="r"><code>pathology_train=read.csv(&quot;../TGGATEs_tutorial_secrete/data/pathology_train.csv&quot;,header = TRUE,row.names = 1)
 head(pathology_train)</code></pre>
-<pre><code>##                                Microgranuloma Hypertrophy
-## 2-nitrofluorene_24 hr_Middle                0           0
-## trimethadione_9 hr_High                     0           0
-## chlormezanone_29 day_High                   0           1
-## carbon_tetrachloride_8 day_Low              0           0
-## amitriptyline_9 hr_Low                      0           0
-## nimesulide_15 day_Low                       1           0</code></pre>
-<p>You can see we provide you with two pathologies “Microgranuloma” and “Hypertrophy”. In <strong>stage 1</strong> , it’s up to you to predict them sepretatly or try to predict two patholgies simultaneously (For example, by <a href="https://en.wikipedia.org/wiki/Multi-label_classification">multi-label classification</a>)</p>
+<pre><code>##                          Microgranuloma Increasedmitosis Hypertrophy
+## omeprazole_3 hr_Low                   0                0           0
+## hydroxyzine_4 day_Middle              0                0           0
+## hydroxyzine_29 day_Low                0                0           0
+## quinidine_8 day_Middle                0                0           0
+## disopyramide_6 hr_High                0                0           0
+## diltiazem_6 hr_High                   0                0           0</code></pre>
+<p>You can see we provide you with three pathologies “Microgranuloma”, Increasedmitosis and “Hypertrophy”. During contest , it’s up to you to predict them sepretatly or try to predict three patholgies simultaneously (For example, by <a href="https://en.wikipedia.org/wiki/Multi-label_classification">multi-label classification</a>)</p>
+</div>
+<div id="pathway-data" class="section level3">
+<h3>Pathway data</h3>
+<p>Two GMT format files contain pathway/gene set information you can exploit if you decide to use gene-set enrichment analysis for feature selection.</p>
+<p>Each row in <a href="https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GMT:_Gene_Matrix_Transposed_file_format_.28.2A.gmt.29">gmt format file</a> is a geneset, which is described by “gene set name”, “gene set description” and the genes in the gene set.</p>
 <hr />
 </div>
 </div>

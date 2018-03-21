@@ -24,16 +24,24 @@ At each stage, each team submit a **CSV format file** containing final predictio
 
 The **file name** should be in this format: Team name_stage index(e.g. RocheTeam_stage1). 
 
-The submission at each stage should have 3 columns. The First column is headed by "sample name" which contains name for each sample. The second and third columns are "Microgranuloma" and "Hypertrophy" that contains prediction for each pathology.
+The submission at each stage should have 4 columns. The First column is headed by "sample name" which contains name for each sample. The 2-4 columns are "Microgranuloma","Increasedmitosis" and "Hypertrophy" that contain predictions for each pathology.
 <br>
 
 <img src="images/format.png">
+
 <br>
+```{r}
+
+pathology_prediction=read.csv("../TGGATEs_tutorial_secrete/data/pathology_prediction.csv",header = TRUE,row.names = 1)
+head(pathology_prediction)
+```
+
+
 
 ---
 
 
-## Presentation Requirement
+## Presentation Requirements
 
 Each team have 10 minutes for the presentation.
 
