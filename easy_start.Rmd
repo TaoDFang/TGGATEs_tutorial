@@ -28,7 +28,7 @@ Actural, we use Python for all the following analysis after we get these five da
 
 * pathology_train.csv - This is the labels corrsponding to samples in exprs_train.csv file 
 
-* go.bp.roche.symbols.gmt - This is the GMT format file  containing gene sets/pathways information from [MSigDB ](http://software.broadinstitute.org/gsea/msigdb) 
+* go.bp.roche.symbols.gmt - This is the GMT format file  containing gene set/pathway information from [MSigDB ](http://software.broadinstitute.org/gsea/msigdb) 
 
 * path.reactomeV55.roche.symbols.gmt - This is the GMT format file  containing gene set/pathway information from [reactome](https://reactome.org/download-data) 
 
@@ -61,7 +61,7 @@ Pathology data are pathological records corresponding to samples in expression d
 pathology_train=read.csv("../TGGATEs_tutorial_secrete/data/pathology_train.csv",header = TRUE,row.names = 1)
 head(pathology_train)
 ```
-You can see we provide you with three  pathologies "Microgranuloma", Increasedmitosis and "Hypertrophy". During contest , it's up to you to  predict them sepretatly or try to predict three patholgies simultaneously (For example, by [multi-label classification](https://en.wikipedia.org/wiki/Multi-label_classification))
+You can see we provide you with three  pathologies "Microgranuloma", "Increasedmitosis" and "Hypertrophy". During contest , it's up to you to  predict them sepretatly or try to predict three patholgies simultaneously (For example, by [multi-label classification](https://en.wikipedia.org/wiki/Multi-label_classification))
 
 ### Pathway data
 

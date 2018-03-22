@@ -43,7 +43,7 @@ head(pathology_prediction)
 
 ## Presentation Requirements
 
-Each team have 10 minutes for the presentation.
+Each team have 6 minutes for the presentation.
 
 Each team need to mention which method they tried at stage2 and number of features that they used for prediction.
 
