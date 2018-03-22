@@ -347,7 +347,7 @@ div.tocify {
 <ul>
 <li><p>exprs_train.csv - This is drug-response gene differential expression data that you should use when you train the model</p></li>
 <li><p>exprs_test.csv - With this data, you make predictions and we will calculate scores for each team based on unpublished data “pathology_test.csv”</p></li>
-<li><p>pathology_train.csv - This is the labels corrsponding to samples in exprs_train.csv file</p></li>
+<li><p>pathology_train.csv - This is the labels corresponding to samples in exprs_train.csv file</p></li>
 <li><p>go.bp.roche.symbols.gmt - This is the GMT format file containing gene set/pathway information from <a href="http://software.broadinstitute.org/gsea/msigdb">MSigDB</a></p></li>
 <li><p>path.reactomeV55.roche.symbols.gmt - This is the GMT format file containing gene set/pathway information from <a href="https://reactome.org/download-data">reactome</a></p></li>
 </ul>
@@ -376,8 +376,8 @@ head(exprs_train[,1:6])</code></pre>
 ## diltiazem_6 hr_High       0.21623079  0.31194707</code></pre>
 <pre class="r"><code>dim(exprs_train)</code></pre>
 <pre><code>## [1] 2822 5613</code></pre>
-<p>As you can see, rownames of expression data have format “durg/compound_time_dose level”. So this means this row is the gene differential expression data of liver for the rat that was administered “drug/compound” with “dose level” and sacrificed at “time point” for measurement. From “drug/compound”, you can collect more information and thus <em>‘making-a-bigger-box’</em> in <strong>stage 3</strong>.</p>
-<p>And colnames of expression data are gene names. So each column is gene diffrential expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutnter when applying machine learning techniques in Biology/Medicine. The aims of <strong>stage 2</strong> is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time.</p>
+<p>As you can see, row names of expression data have format “drug/compound_time_dose level”. So this means this row is the gene differential expression data of liver for the rat that was administered “drug/compound” with “dose level” and sacrificed at “time point” for measurement. From “drug/compound”, you can collect more information and thus <em>‘making-a-bigger-box’</em> in <strong>stage 3</strong>.</p>
+<p>And col names of expression data are gene names. So each column is gene differential expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encounter when applying machine learning techniques in Biology/Medicine. The aims of <strong>stage 2</strong> is trying to using feature selection/extraction methods to reduce the number of features but having equivalent prediction power at the same time.</p>
 </div>
 <div id="pathology-data" class="section level3">
 <h3>pathology data</h3>
@@ -391,12 +391,12 @@ head(pathology_train)</code></pre>
 ## quinidine_8 day_Middle                0                0           0
 ## disopyramide_6 hr_High                0                0           0
 ## diltiazem_6 hr_High                   0                0           0</code></pre>
-<p>You can see we provide you with three pathologies “Microgranuloma”, “Increasedmitosis” and “Hypertrophy”. During contest , it’s up to you to predict them sepretatly or try to predict three patholgies simultaneously (For example, by <a href="https://en.wikipedia.org/wiki/Multi-label_classification">multi-label classification</a>)</p>
+<p>You can see we provide you with three pathologies “Microgranuloma”, “Increasedmitosis” and “Hypertrophy”. During contest , it’s up to you to predict them separately or try to predict three pathologies simultaneously (For example, by <a href="https://en.wikipedia.org/wiki/Multi-label_classification">multi-label classification</a>)</p>
 </div>
 <div id="pathway-data" class="section level3">
 <h3>Pathway data</h3>
 <p>Two GMT format files contain pathway/gene set information you can exploit if you decide to use gene-set enrichment analysis for feature selection.</p>
-<p>Each row in <a href="https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GMT:_Gene_Matrix_Transposed_file_format_.28.2A.gmt.29">gmt format file</a> is a geneset, which is described by “gene set name”, “gene set description” and the genes in the gene set.</p>
+<p>Each row in <a href="https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GMT:_Gene_Matrix_Transposed_file_format_.28.2A.gmt.29">gmt format file</a> is a gene set, which is described by “gene set name”, “gene set description” and the genes in the gene set.</p>
 <hr />
 </div>
 </div>

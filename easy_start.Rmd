@@ -26,7 +26,7 @@ Actural, we use Python for all the following analysis after we get these five da
 
 * exprs_test.csv - With this data, you make predictions and we will calculate scores for each team based on unpublished data "pathology_test.csv"
 
-* pathology_train.csv - This is the labels corrsponding to samples in exprs_train.csv file 
+* pathology_train.csv - This is the labels corresponding to samples in exprs_train.csv file 
 
 * go.bp.roche.symbols.gmt - This is the GMT format file  containing gene set/pathway information from [MSigDB ](http://software.broadinstitute.org/gsea/msigdb) 
 
@@ -49,10 +49,10 @@ dim(exprs_train)
 
 ```
 
-As you can see, rownames of expression data have format "durg/compound_time_dose level".
+As you can see, row names of expression data have format "drug/compound_time_dose level".
 So this means this row is the gene differential expression data of liver for the  rat that was administered "drug/compound" with "dose level" and sacrificed at "time point" for measurement. From "drug/compound", you can collect more information and thus *‘making-a-bigger-box’* in **stage 3**.
 
-And colnames of expression data are gene names. So each column is gene diffrential  expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encoutnter when  applying machine learning techniques in Biology/Medicine. The aims of **stage 2** is trying to using feature selection methods to reduce the number of features but having equivelant prediction power at the same time. 
+And col names of expression data are gene names. So each column is gene differential  expression level across all the samples. You may notice already that we have more features than samples in our data.This is general problem we will encounter when  applying machine learning techniques in Biology/Medicine. The aims of **stage 2** is trying to using feature selection/extraction methods to reduce the number of features but having equivalent prediction power at the same time. 
 
 ### pathology data
 Pathology data are pathological records corresponding to samples in expression data. 
@@ -61,13 +61,13 @@ Pathology data are pathological records corresponding to samples in expression d
 pathology_train=read.csv("../TGGATEs_tutorial_secrete/data/pathology_train.csv",header = TRUE,row.names = 1)
 head(pathology_train)
 ```
-You can see we provide you with three  pathologies "Microgranuloma", "Increasedmitosis" and "Hypertrophy". During contest , it's up to you to  predict them sepretatly or try to predict three patholgies simultaneously (For example, by [multi-label classification](https://en.wikipedia.org/wiki/Multi-label_classification))
+You can see we provide you with three  pathologies "Microgranuloma", "Increasedmitosis" and "Hypertrophy". During contest , it's up to you to  predict them separately or try to predict three pathologies simultaneously (For example, by [multi-label classification](https://en.wikipedia.org/wiki/Multi-label_classification))
 
 ### Pathway data
 
 Two GMT format files contain pathway/gene set information you can exploit if you decide to use gene-set enrichment analysis for feature selection.
 
-Each row in [gmt format file](https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GMT:_Gene_Matrix_Transposed_file_format_.28.2A.gmt.29) is  a geneset, which is described by "gene set name", "gene set description" and  the genes in the gene set. 
+Each row in [gmt format file](https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GMT:_Gene_Matrix_Transposed_file_format_.28.2A.gmt.29) is  a gene set, which is described by "gene set name", "gene set description" and  the genes in the gene set. 
 
 
 ---
