@@ -49,5 +49,9 @@ Each team need to mention which method they tried at stage2 and number of featur
 
 For stage3, participants should introduce what is additional information they used to increase prediction power.   
 
+## Timeline
+
+
+Each team should send their reproducible code, presentation and prediction results to this email address (*tao.fang@roche.com*) before **5:30 PM**.
 
 ---
